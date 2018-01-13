@@ -68,6 +68,16 @@ namespace HartPR.Services
                 .OrderBy(p => p.LastName)
                 .ToList();
         }
+
+        public void AddPlayer(Player player)
+        {
+            player.Id = Guid.NewGuid();
+            _context.Players.Add(player);
+            // the repository fills the id (instead of using identity columns)
+        }
+
+
+
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);

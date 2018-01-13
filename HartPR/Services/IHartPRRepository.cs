@@ -12,7 +12,7 @@ namespace HartPR.Services
         PagedList<Player> GetPlayers(PlayersResourceParameters playersResourceParameters);
         Player GetPlayer(Guid playerId);
         IEnumerable<Player> GetPlayers(IEnumerable<Guid> playerIds);
-        //void AddPlayer(Player player);
+        void AddPlayer(Player player);
         //void DeletePlayer(Player player);
         //void UpdatePlayer(Player player);
         //bool PlayerExists(Guid playerId);

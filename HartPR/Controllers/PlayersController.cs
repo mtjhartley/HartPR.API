@@ -186,5 +186,58 @@ namespace HartPR.Controllers
 
             return links;
         }
+
+        [HttpGet("{id}", Name = "GetPlayer")]
+        public IActionResult GetPlayer(Guid id, [FromQuery] string fields)
+        {
+            if (!_typeHelperService.TypeHasProperties<PlayerDto>
+              (fields))
+            {
+                return BadRequest();
+            }
+
+            var playerFromRepo = _hartPRRepository.GetPlayer(id);
+
+            if (playerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var author = Mapper.Map<PlayerDto>(playerFromRepo);
+
+            var links = CreateLinksForPlayer(id, fields);
+
+            var linkedResourceToReturn = author.ShapeData(fields)
+                as IDictionary<string, object>;
+
+            linkedResourceToReturn.Add("links", links);
+
+            return Ok(linkedResourceToReturn);
+        }
+
+        [HttpPost(Name = "CreatePlayer")]
+        public IActionResult CreatePlayer([FromBody] PlayerForCreationDto player)
+        {
+            if (player == null)
+            {
+                return BadRequest();
+            }
+
+            var playerEntity = Mapper.Map<Player>(player);
+
+            _hartPRRepository.AddPlayer(playerEntity);
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception("Creating an player failed on save.");
+                // return StatusCode(500, "A problem happened with handling your request.");
+            }
+
+            var playerToReturn = Mapper.Map<PlayerDto>(playerEntity);
+
+            return CreatedAtRoute("GetPlayer",
+                new { id = playerToReturn.Id },
+                playerToReturn);
+        }
     }
 }

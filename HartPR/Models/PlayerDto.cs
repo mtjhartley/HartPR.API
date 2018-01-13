@@ -12,6 +12,6 @@ namespace HartPR.Models
         public string Name { get; set; }
         public string State { get; set; }
         public double TrueSkill { get; set; }
-        public string Genre { get; set; }
+        public int SggPlayerId { get; set; }
     }
 }

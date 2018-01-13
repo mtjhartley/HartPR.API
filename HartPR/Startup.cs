@@ -101,13 +101,13 @@ namespace HartPR
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
                     $"{src.FirstName} {src.LastName}"));
 
-                //cfg.CreateMap<Entities.Book, Models.BookDto>();
+                cfg.CreateMap<Entities.Player, Models.PlayerDto>();
 
-                //cfg.CreateMap<Models.AuthorForCreationDto, Entities.Author>();
+                cfg.CreateMap<Models.PlayerDto, Entities.Player>();
 
                 //cfg.CreateMap<Models.AuthorForCreationWithDateOfDeathDto, Entities.Author>();
 
-                //cfg.CreateMap<Models.BookForCreationDto, Entities.Book>();
+                cfg.CreateMap<Models.PlayerForCreationDto, Entities.Player>();
 
                 //cfg.CreateMap<Models.BookForUpdateDto, Entities.Book>();
 
