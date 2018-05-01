@@ -53,7 +53,8 @@ namespace HartPR.Services
                 collectionBeforePaging = collectionBeforePaging
                     .Where(a => a.State.ToLowerInvariant().Contains(searchQueryForWhereClause)
                     || a.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                    || a.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+                    || a.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.Tag.ToLowerInvariant().Contains(searchQueryForWhereClause));
             }
 
             return PagedList<Player>.Create(collectionBeforePaging,
