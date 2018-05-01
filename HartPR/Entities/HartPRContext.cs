@@ -11,5 +11,7 @@ namespace HartPR.Entities
         }
 
         public DbSet<Player> Players { get; set; }
+
+        public DbSet<Tournament> Tournaments { get; set; }
     }
 }

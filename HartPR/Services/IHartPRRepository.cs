@@ -13,13 +13,11 @@ namespace HartPR.Services
         Player GetPlayer(Guid playerId);
         IEnumerable<Player> GetPlayers(IEnumerable<Guid> playerIds);
         void AddPlayer(Player player);
-        //void DeletePlayer(Player player);
-        //void UpdatePlayer(Player player);
-        //bool PlayerExists(Guid playerId);
+        void AddPlayer(Player player, Guid playerId);
+        void DeletePlayer(Player player);
+        void UpdatePlayer(Player player);
+        bool PlayerExists(Guid playerId);
         bool Save();
-
-
-
-
+        
     }
 }

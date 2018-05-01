@@ -101,17 +101,17 @@ namespace HartPR
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
                     $"{src.FirstName} {src.LastName}"));
 
-                cfg.CreateMap<Entities.Player, Models.PlayerDto>();
-
                 cfg.CreateMap<Models.PlayerDto, Entities.Player>();
 
                 //cfg.CreateMap<Models.AuthorForCreationWithDateOfDeathDto, Entities.Author>();
 
                 cfg.CreateMap<Models.PlayerForCreationDto, Entities.Player>();
 
-                //cfg.CreateMap<Models.BookForUpdateDto, Entities.Book>();
+                cfg.CreateMap<Models.PlayerForManipulationDto, Entities.Player>();
 
-                //cfg.CreateMap<Entities.Book, Models.BookForUpdateDto>();
+                cfg.CreateMap<Models.PlayerForUpdateDto, Entities.Player>();
+
+                cfg.CreateMap<Entities.Player, Models.PlayerForUpdateDto>();
             });
 
             hartPRContext.EnsureSeedDataForContext();

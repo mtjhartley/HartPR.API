@@ -27,7 +27,7 @@ namespace HartPR.Services
         public PagedList<Player> GetPlayers(
             PlayersResourceParameters playersResourceParameters)
         {
-            //var collectionBeforePaging = _context.Authors
+            //var collectionBeforePaging = _context.Players
             //    .OrderBy(a => a.FirstName)
             //    .ThenBy(a => a.LastName).AsQueryable();
 
@@ -75,6 +75,29 @@ namespace HartPR.Services
             _context.Players.Add(player);
             // the repository fills the id (instead of using identity columns)
         }
+
+        public void AddPlayer(Player player, Guid playerId)
+        {
+            //uses the Upserted Id.
+            _context.Players.Add(player);
+        }
+
+
+        public void DeletePlayer(Player player)
+        {
+            _context.Players.Remove(player);
+        }
+
+        public void UpdatePlayer(Player player)
+        {
+            //no code in this implementation
+        }
+
+        public bool PlayerExists(Guid playerId)
+        {
+            return _context.Players.Any(p => p.Id == playerId);
+        }
+
 
 
 

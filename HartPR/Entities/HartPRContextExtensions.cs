@@ -11,6 +11,7 @@ namespace HartPR.Entities
             // fresh with each demo.  Not advised for production environments, obviously :-)
 
             context.Players.RemoveRange(context.Players);
+            context.Tournaments.RemoveRange(context.Tournaments);
             context.SaveChanges();
 
             // init seed data
@@ -104,7 +105,52 @@ namespace HartPR.Entities
                 }
             };
 
+            var tournaments = new List<Tournament>()
+            {
+                new Tournament()
+                {
+                    Id = new Guid("977974e7-1e4a-4305-8ace-70e8268f4164"),
+                    Name = "Tony Town 2: Swag Me Out",
+                    Website = "smashgg",
+                    URL = "tony-town-2",
+                    Date = new DateTimeOffset(new DateTime(2007, 4, 20)),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now)
+                },
+                new Tournament()
+                {
+                    Id = new Guid("d791d482-b0fb-4598-966a-4abf802253ee"),
+                    Name = "The Dawg Pound",
+                    Website = "smashgg",
+                    URL = "the-dawg-pound",
+                    Date = new DateTimeOffset(new DateTime(2010, 3, 21)),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now)
+                },
+                new Tournament()
+                {
+                    Id = new Guid("02007fa8-2e7e-405e-b25b-a6ef4e65c7f1"),
+                    Name = "Smash For Smiles",
+                    Website = "smashgg",
+                    URL = "smash-for-smiles",
+                    Date = new DateTimeOffset(new DateTime(2015, 1, 05)),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now)
+                },
+                new Tournament()
+                {
+                    Id = new Guid("a09ee685-1917-4251-be85-09b76b563861"),
+                    Name = "Shrekfest 3: I Came In Like A Shreking Ball",
+                    Website = "smashgg",
+                    URL = "shrekfest-3",
+                    Date = new DateTimeOffset(new DateTime(2014, 11, 14)),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now)
+                }
+            };
+
             context.Players.AddRange(players);
+            context.Tournaments.AddRange(tournaments);
             context.SaveChanges();
         }
     }

@@ -9,6 +9,7 @@ using HartPR.Models;
 using HartPR.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace HartPR.Controllers
 {
@@ -32,7 +33,7 @@ namespace HartPR.Controllers
         }
 
         [HttpGet(Name = "GetPlayers")]
-        public IActionResult GetAuthors(PlayersResourceParameters playersResourceParameters)
+        public IActionResult GetPlayers(PlayersResourceParameters playersResourceParameters)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<PlayerDto, Player>
                (playersResourceParameters.OrderBy))
@@ -203,11 +204,11 @@ namespace HartPR.Controllers
                 return NotFound();
             }
 
-            var author = Mapper.Map<PlayerDto>(playerFromRepo);
+            var player = Mapper.Map<PlayerDto>(playerFromRepo);
 
             var links = CreateLinksForPlayer(id, fields);
 
-            var linkedResourceToReturn = author.ShapeData(fields)
+            var linkedResourceToReturn = player.ShapeData(fields)
                 as IDictionary<string, object>;
 
             linkedResourceToReturn.Add("links", links);
@@ -221,6 +222,12 @@ namespace HartPR.Controllers
             if (player == null)
             {
                 return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // return 422 unprocessable entity
+                return new UnprocessableEntityObjectResult(ModelState);
             }
 
             var playerEntity = Mapper.Map<Player>(player);
@@ -239,5 +246,116 @@ namespace HartPR.Controllers
                 new { id = playerToReturn.Id },
                 playerToReturn);
         }
+
+        [HttpDelete("{id}", Name = "DeletePlayer")]
+        public IActionResult DeletePlayer(Guid id)
+        {
+            var playerFromRepo = _hartPRRepository.GetPlayer(id);
+            if (playerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _hartPRRepository.DeletePlayer(playerFromRepo);
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception($"Deleting player {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdatePlayer(Guid id,
+            [FromBody] PlayerForUpdateDto player)
+        {
+            if (player == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            var playerFromRepo = _hartPRRepository.GetPlayer(id);
+            if (playerFromRepo == null)
+            {
+                //Player upserting implementation
+                var playerToAdd = Mapper.Map<Player>(player);
+                playerToAdd.Id = id;
+
+                _hartPRRepository.AddPlayer(playerToAdd, id);
+
+                if (!_hartPRRepository.Save())
+                {
+                    throw new Exception($"Upserting player {id} failed on save.");
+                }
+
+                var playerToReturn = Mapper.Map<PlayerDto>(playerToAdd);
+
+                return CreatedAtRoute("GetPlayer", new { id = playerToReturn.Id } ,playerToReturn);
+            }
+
+            //map 
+
+            //apply update
+
+            //map update dto back to entity
+            Mapper.Map(player, playerFromRepo);
+
+            _hartPRRepository.UpdatePlayer(playerFromRepo); //calling into this empty method 
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception($"Updating player {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+        [HttpPatch("{id}")]
+        public IActionResult PartiallyUpdatePlayer(Guid id,
+            [FromBody] JsonPatchDocument<PlayerForUpdateDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var playerFromRepo = _hartPRRepository.GetPlayer(id);
+            if (playerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var playerToPatch = Mapper.Map<PlayerForUpdateDto>(playerFromRepo);
+
+            patchDoc.ApplyTo(playerToPatch, ModelState);
+
+            TryValidateModel(playerToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            //TODO: add update validation here!
+
+            //later
+            Mapper.Map(playerToPatch, playerFromRepo);
+
+            _hartPRRepository.UpdatePlayer(playerFromRepo);
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception($"Patching player {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+
     }
 }

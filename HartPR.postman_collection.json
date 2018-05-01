@@ -1,0 +1,347 @@
+{
+	"info": {
+		"name": "HartPR",
+		"_postman_id": "89f8a17c-0059-a1fe-5205-b133ff3cdd89",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetPlayers(WA, by TrueSkill, Paginated)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players?State=WA&OrderBy=trueSkill desc&pageNumber=1&pageSize=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players"
+					],
+					"query": [
+						{
+							"key": "State",
+							"value": "WA",
+							"equals": true
+						},
+						{
+							"key": "OrderBy",
+							"value": "trueSkill desc",
+							"equals": true
+						},
+						{
+							"key": "pageNumber",
+							"value": "1",
+							"equals": true
+						},
+						{
+							"key": "pageSize",
+							"value": "2",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlayers(All, by TrueSkill)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players?OrderBy=trueSkill desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players"
+					],
+					"query": [
+						{
+							"key": "OrderBy",
+							"value": "trueSkill desc",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlayers(All)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlayers(1)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players/25320c5e-f58a-4b1f-b63a-8ee07a840bdf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"25320c5e-f58a-4b1f-b63a-8ee07a840bdf"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlayers(1, Failure)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players/25320c5e-f58a-4b1f-b63a-8ee07a840bdd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"25320c5e-f58a-4b1f-b63a-8ee07a840bdd"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PostPlayer(Alec)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tag\": \"Wasabi\",\n\t\"firstName\": \"Alec\",\n\t\"lastName\": \"Tsutsumoto\",\n\t\"state\": \"CA\",\n\t\"trueSkill\": 9999,\n\t\"sggPlayerId\": 150\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePlayer(Leah)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players/a1da1d8e-1988-4634-b538-a01709477b77",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"a1da1d8e-1988-4634-b538-a01709477b77"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PutPlayer(Gary)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Acc",
+						"value": "applicat"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tag\": \"MilkBoy\",\n\t\"firstName\": \"Gary\",\n\t\"lastName\": \"Mai\",\n\t\"state\": \"WA\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/players/412c3012-d891-4f5e-9613-ff7aa63e6bb3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"412c3012-d891-4f5e-9613-ff7aa63e6bb3"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UpsertPlayer(Brian)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tag\": \"Smirked\",\n\t\"firstName\": \"Brian\",\n\t\"lastName\": \"Hansen\",\n\t\"state\": \"TN\",\n\t\"trueSkill\": 1500,\n\t\"sggPlayerId\": 273\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/players/2c6878ad-3759-4146-9ec0-e4970591b7a6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"2c6878ad-3759-4146-9ec0-e4970591b7a6"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PatchPlayer(Mitch)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"op\": \"replace\",\n\t\t\"path\": \"/state\",\n\t\t\"value\": \"IL\"\n\t}\t\n]"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/players/76053df4-6687-4353-8937-b45556748abe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"76053df4-6687-4353-8937-b45556748abe"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PostPlayer(Null values)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tag\": null,\n\t\"firstName\": null,\n\t\"lastName\": null,\n\t\"state\": null,\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

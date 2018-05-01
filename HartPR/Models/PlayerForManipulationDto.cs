@@ -19,6 +19,7 @@ namespace HartPR.Models
         [Required(ErrorMessage = "You should fill out a state")]
         public string State { get; set; }
 
+        //TODO: Should TrueSkill be supplied (2500, 833.33?) when inputted automatically? nullable? 
         public double TrueSkill { get; set; }
 
         public int SggPlayerId { get; set; }
