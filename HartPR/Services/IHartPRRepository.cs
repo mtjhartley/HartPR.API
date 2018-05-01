@@ -20,7 +20,7 @@ namespace HartPR.Services
         bool PlayerExists(Guid playerId);
         //tournaments
         PagedList<Tournament> GetTournaments(TournamentsResourceParameters tournamentsResourceParameters);
+        Tournament GetTournament(Guid tournamentId);
         bool Save();
-        
     }
 }

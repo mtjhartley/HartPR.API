@@ -135,6 +135,11 @@ namespace HartPR.Services
                 tournamentResourceParameters.PageSize);
         }
 
+        public Tournament GetTournament(Guid tournamentId)
+        {
+            return _context.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
+        }
+
         #endregion  
 
         public bool Save()

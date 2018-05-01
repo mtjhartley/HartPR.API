@@ -177,10 +177,38 @@ namespace HartPR.Controllers
 
             links.Add(
               new LinkDto(_urlHelper.Link("DeleteTournament", new { id = id }),
-              "delete_player",
+              "delete_tournament",
               "DELETE"));
 
             return links;
+        }
+
+        [HttpGet("{id}", Name = "GetTournament")]
+        public IActionResult GetTournament(Guid id, [FromQuery] string fields)
+        {
+            if (!_typeHelperService.TypeHasProperties<TournamentDto>
+              (fields))
+            {
+                return BadRequest();
+            }
+
+            var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+
+            if (tournamentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var tournament = Mapper.Map<TournamentDto>(tournamentFromRepo);
+
+            var links = CreateLinksForTournament(id, fields);
+
+            var linkedResourceToReturn = tournament.ShapeData(fields)
+                as IDictionary<string, object>;
+
+            linkedResourceToReturn.Add("links", links);
+
+            return Ok(linkedResourceToReturn);
         }
     }
 }
