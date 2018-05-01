@@ -97,6 +97,7 @@ namespace HartPR
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
+                // players mapping
                 cfg.CreateMap<Entities.Player, Models.PlayerDto>()
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
                     $"{src.FirstName} {src.LastName}"));
@@ -112,6 +113,11 @@ namespace HartPR
                 cfg.CreateMap<Models.PlayerForUpdateDto, Entities.Player>();
 
                 cfg.CreateMap<Entities.Player, Models.PlayerForUpdateDto>();
+
+                // tournaments mapping
+                cfg.CreateMap<Entities.Tournament, Models.TournamentDto>();
+
+                cfg.CreateMap<Models.TournamentDto, Entities.Player>();
             });
 
             hartPRContext.EnsureSeedDataForContext();

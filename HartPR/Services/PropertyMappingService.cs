@@ -19,11 +19,23 @@ namespace HartPR.Services
                { "Trueskill", new PropertyMappingValue(new List<string>() { "Trueskill" } ) },
             };
 
+        private Dictionary<string, PropertyMappingValue> _tournamentPropertyMapping =
+            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+            {
+               { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+               { "Name", new PropertyMappingValue(new List<string>() { "Name" } ) },
+               { "Website", new PropertyMappingValue(new List<string>() { "Website" } ) },
+               { "Subdomain", new PropertyMappingValue(new List<string>() { "Subdomain" } ) },
+               { "URL", new PropertyMappingValue(new List<string>() { "URL" } ) },
+               { "Date", new PropertyMappingValue(new List<string>() { "Date" } ) },
+            };
+
         private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
         {
             propertyMappings.Add(new PropertyMapping<PlayerDto, Player>(_playerPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<TournamentDto, Tournament>(_tournamentPropertyMapping));
         }
 
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping

@@ -9,6 +9,7 @@ namespace HartPR.Services
 {
     public interface IHartPRRepository
     {
+        //players
         PagedList<Player> GetPlayers(PlayersResourceParameters playersResourceParameters);
         Player GetPlayer(Guid playerId);
         IEnumerable<Player> GetPlayers(IEnumerable<Guid> playerIds);
@@ -17,6 +18,8 @@ namespace HartPR.Services
         void DeletePlayer(Player player);
         void UpdatePlayer(Player player);
         bool PlayerExists(Guid playerId);
+        //tournaments
+        PagedList<Tournament> GetTournaments(TournamentsResourceParameters tournamentsResourceParameters);
         bool Save();
         
     }
