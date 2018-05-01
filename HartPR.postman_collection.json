@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "HartPR",
-		"_postman_id": "89f8a17c-0059-a1fe-5205-b133ff3cdd89",
+		"_postman_id": "b08a02cc-fc68-5231-4783-807fabc10e5e",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players?State=WA&OrderBy=trueSkill desc&pageNumber=1&pageSize=2",
 					"protocol": "http",
@@ -45,8 +48,7 @@
 							"equals": true
 						}
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -55,7 +57,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players?OrderBy=trueSkill desc",
 					"protocol": "http",
@@ -74,8 +79,7 @@
 							"equals": true
 						}
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -84,7 +88,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players",
 					"protocol": "http",
@@ -96,8 +103,7 @@
 						"api",
 						"players"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -106,7 +112,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players/25320c5e-f58a-4b1f-b63a-8ee07a840bdf",
 					"protocol": "http",
@@ -119,8 +128,7 @@
 						"players",
 						"25320c5e-f58a-4b1f-b63a-8ee07a840bdf"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -129,7 +137,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players/25320c5e-f58a-4b1f-b63a-8ee07a840bdd",
 					"protocol": "http",
@@ -141,6 +152,34 @@
 						"api",
 						"players",
 						"25320c5e-f58a-4b1f-b63a-8ee07a840bdd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlayers(Search)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players?searchQuery=michael",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players"
+					],
+					"query": [
+						{
+							"key": "searchQuery",
+							"value": "michael",
+							"equals": true
+						}
 					]
 				},
 				"description": ""
@@ -176,8 +215,7 @@
 						"api",
 						"players"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -186,7 +224,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players/a1da1d8e-1988-4634-b538-a01709477b77",
 					"protocol": "http",
@@ -199,8 +240,7 @@
 						"players",
 						"a1da1d8e-1988-4634-b538-a01709477b77"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -234,8 +274,7 @@
 						"players",
 						"412c3012-d891-4f5e-9613-ff7aa63e6bb3"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -269,8 +308,7 @@
 						"players",
 						"2c6878ad-3759-4146-9ec0-e4970591b7a6"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -304,8 +342,7 @@
 						"players",
 						"76053df4-6687-4353-8937-b45556748abe"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -337,6 +374,124 @@
 					"path": [
 						"api",
 						"players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTournaments(All)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tournaments(Chronologically)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments?OrderBy=Date desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments"
+					],
+					"query": [
+						{
+							"key": "OrderBy",
+							"value": "Date desc",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetTournaments(Chronological, Paginated)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments?orderBy=Date%20desc&pageNumber=2&pageSize=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments"
+					],
+					"query": [
+						{
+							"key": "orderBy",
+							"value": "Date%20desc",
+							"equals": true
+						},
+						{
+							"key": "pageNumber",
+							"value": "2",
+							"equals": true
+						},
+						{
+							"key": "pageSize",
+							"value": "2",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetTournament(Search)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments?searchQuery=tony",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments"
+					],
+					"query": [
+						{
+							"key": "searchQuery",
+							"value": "tony",
+							"equals": true
+						}
 					]
 				},
 				"description": ""
