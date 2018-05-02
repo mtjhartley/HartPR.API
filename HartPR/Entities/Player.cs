@@ -12,6 +12,7 @@ namespace HartPR.Entities
         public Guid Id { get; set; }
 
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
 
         [Required]
@@ -26,6 +27,7 @@ namespace HartPR.Entities
         public int SggPlayerId { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
+
         public DateTimeOffset UpdatedAt { get; set; }
 
     }

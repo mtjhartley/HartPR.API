@@ -115,7 +115,30 @@ namespace HartPR.Entities
                     URL = "tony-town-2",
                     Date = new DateTimeOffset(new DateTime(2007, 4, 20)),
                     CreatedAt = new DateTimeOffset(DateTime.Now),
-                    UpdatedAt = new DateTimeOffset(DateTime.Now)
+                    UpdatedAt = new DateTimeOffset(DateTime.Now),
+                    Sets = new List<Set>()
+                    {
+                        new Set()
+                        {
+                            Id = new Guid("fa7ef1f3-5236-4042-8b32-bf82b98ddb46"),
+                            Entrant1Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+                            Entrant2Id = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"),
+                            WinnerId = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+                            LoserId = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"),
+                            CreatedAt = new DateTimeOffset(DateTime.Now),
+                            UpdatedAt = new DateTimeOffset(DateTime.Now),
+                        },
+                        new Set()
+                        {
+                            Id = new Guid("a5297b02-f14b-429c-aec4-ef092922e48b"),
+                            Entrant1Id = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
+                            Entrant2Id = new Guid("412c3012-d891-4f5e-9613-ff7aa63e6bb3"),
+                            WinnerId = new Guid("412c3012-d891-4f5e-9613-ff7aa63e6bb3"),
+                            LoserId = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
+                            CreatedAt = new DateTimeOffset(DateTime.Now),
+                            UpdatedAt = new DateTimeOffset(DateTime.Now),
+                        }
+                    }
                 },
                 new Tournament()
                 {

@@ -23,8 +23,8 @@ namespace HartPR.Entities
         public DateTimeOffset UpdatedAt { get; set; }
 
         //TODO: Implement Sets and Players within the tournament later? With an option to grab them or not?
-        //    public ICollection<Set> Sets { get; set; }
-        //= new List<Set>();
+            public ICollection<Set> Sets { get; set; }
+        = new List<Set>();
 
         //    public ICollection<Player> Players { get; set; }
         //= new List<Player>();

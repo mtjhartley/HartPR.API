@@ -24,6 +24,9 @@ namespace HartPR.Services
         void AddTournament(Tournament tournament);
         void DeleteTournament(Tournament tournament);
         void UpdateTournament(Tournament tournament);
+        bool TournamentExists(Guid tournamentId);
+        //sets
+        IEnumerable<Set> GetSetsForTournament(Guid tournamentId);
         bool Save();
     }
 }

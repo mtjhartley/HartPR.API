@@ -159,6 +159,20 @@ namespace HartPR.Services
             //no code in this implementation
         }
 
+        public bool TournamentExists(Guid tournamentId)
+        {
+            return _context.Tournaments.Any(t => t.Id == tournamentId);
+        }
+
+        #endregion
+
+        #region sets
+
+        public IEnumerable<Set> GetSetsForTournament(Guid tournamentId)
+        {
+            return _context.Sets.Where(s => s.TournamentId == tournamentId).ToList();
+        }
+
         #endregion  
 
         public bool Save()

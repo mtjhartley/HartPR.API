@@ -126,8 +126,13 @@ namespace HartPR
                 cfg.CreateMap<Models.TournamentForUpdateDto, Entities.Tournament>();
 
                 cfg.CreateMap<Entities.Tournament, Models.TournamentForUpdateDto>();
+
+                // set mapping
+                cfg.CreateMap<Entities.Set, Models.SetDto>();
+
             });
 
+            //comment out this line when doing db migrations
             hartPRContext.EnsureSeedDataForContext();
 
             app.UseMvc();
