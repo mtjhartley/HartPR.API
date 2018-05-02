@@ -353,6 +353,21 @@ namespace HartPR.Controllers
             return NoContent();
         }
 
+        [HttpGet("{id}/sets", Name = "GetSetsForPlayer")]
+        public IActionResult GetSetsForPlayer(Guid id)
+        {
+            var playerFromRepo = _hartPRRepository.GetPlayer(id);
+
+            if (playerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var setsForPlayerFromRepo = _hartPRRepository.GetSetsForPlayer(id);
+
+            return Ok(setsForPlayerFromRepo);
+        }
+
 
     }
 }

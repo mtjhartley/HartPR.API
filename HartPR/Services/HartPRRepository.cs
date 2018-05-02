@@ -167,6 +167,55 @@ namespace HartPR.Services
         #endregion
 
         #region sets
+        //TODO: Consider changing this to search by SGGPlayerId as per discussion with Mitch.
+        public IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId)
+        {
+            //return _context.Sets.Where(s => s.Entrant1Id == playerId
+            //    || s.Entrant2Id == playerId).Join()
+            //    ToList();
+
+            //return _context.Players
+            //    .Join(_context.Sets,
+            //        p => p.Id,
+            //        s => s.Entrant1Id || s.Entrant2Id,
+
+            //var playerSets = from p in _context.Players
+            //                 join s in _context.Sets on p.Id equals s.Entrant1Id || p.Id equals s.Entrant2Id
+
+            //var setPlayers = from s in _context.Sets
+            //                 join p in _context.Players on s.Entrant1Id equals p.Id
+
+            //var linqQuery1 = from s in _context.Sets
+            //                   from w in _context.Players
+            //                   from l in _context.Players
+            //                   where s.Entrant1Id == w.Id || s.Entrant2Id == w.Id || s.Entrant1Id == l.Id || s.Entrant2Id == l.Id
+            //                   select new { w.Tag, l.Tag, }
+
+            //var linqQuery2 = from p in _context.Players
+            //                 join ws in _context.Sets on p.Id equals ws.WinnerId
+            //                 join ls in _context.Sets on p.Id equals ls.LoserId
+            //                 select new
+            //                     {
+            //                        ws.p
+            //                     }
+            var linqQuery3 = (from set in _context.Sets
+                              join winner in _context.Players on set.WinnerId equals winner.Id
+                              join loser in _context.Players on set.LoserId equals loser.Id
+                              join tournament in _context.Tournaments on set.TournamentId equals tournament.Id
+                              where set.WinnerId == winner.Id || set.LoserId == loser.Id
+
+                              //change this to use a new front facing set DTO
+                              select new SetDtoForPlayer()
+                              {
+                                  Winner = winner.Tag,
+                                  Loser = loser.Tag,
+                                  Tournament = tournament.Name
+                              }
+                             ).ToList();
+            return linqQuery3;
+
+
+        }
 
         public IEnumerable<Set> GetSetsForTournament(Guid tournamentId)
         {

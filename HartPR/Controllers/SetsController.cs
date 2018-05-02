@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HartPR.Controllers
 {
-    [Route("api/tournaments/{tournamentId}/sets")]
+    //[Route("api/tournaments/{tournamentId}/sets")]
     public class SetsController : Controller
     {
         private IHartPRRepository _hartPRRepository;
@@ -28,19 +28,19 @@ namespace HartPR.Controllers
             _typeHelperService = typeHelperService;
         }
 
-        [HttpGet(Name = "GetSetsForTournament")]
-        public IActionResult GetSetsForTournament(Guid tournamentId)
-        {
-            if (!_hartPRRepository.TournamentExists(tournamentId))
-            {
-                return NotFound();
-            }
+        //[HttpGet(Name = "GetSetsForTournament")]
+        //public IActionResult GetSetsForTournament(Guid tournamentId)
+        //{
+        //    if (!_hartPRRepository.TournamentExists(tournamentId))
+        //    {
+        //        return NotFound();
+        //    }
 
-            var setsForTournamentFromRepo = _hartPRRepository.GetSetsForTournament(tournamentId);
+        //    var setsForTournamentFromRepo = _hartPRRepository.GetSetsForTournament(tournamentId);
 
-            var setsForTournament = Mapper.Map<IEnumerable<SetDto>>(setsForTournamentFromRepo);
+        //    var setsForTournament = Mapper.Map<IEnumerable<SetDto>>(setsForTournamentFromRepo);
 
-            return Ok(setsForTournament);
-        }
+        //    return Ok(setsForTournament);
+        //}
     }
 }

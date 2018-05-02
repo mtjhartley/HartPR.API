@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HartPR.Entities
 {
+    //TODO Get rid of player guids? Rely solely on SmashGG Player ids?
     public class Player
     {
         [Key]

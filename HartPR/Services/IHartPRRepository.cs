@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HartPR.Entities;
 using HartPR.Helpers;
+using HartPR.Models;
 
 namespace HartPR.Services
 {
@@ -26,6 +27,7 @@ namespace HartPR.Services
         void UpdateTournament(Tournament tournament);
         bool TournamentExists(Guid tournamentId);
         //sets
+        IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId);
         IEnumerable<Set> GetSetsForTournament(Guid tournamentId);
         bool Save();
     }

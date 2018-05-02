@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace HartPR.Entities
 {
+    //TODO change Entrant1Id and Entrant2Id to Smashgg ids. 
     public class Set
     {
         [Key]
@@ -28,6 +29,9 @@ namespace HartPR.Entities
 
         [Required]
         public Guid LoserId { get; set; }
+
+        //public int WinnerScore {get;set;}
+        //public int LoserScore {get;set;}
 
         public DateTimeOffset CreatedAt { get; set; }
 

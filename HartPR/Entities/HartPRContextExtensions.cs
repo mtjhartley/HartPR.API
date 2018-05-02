@@ -12,6 +12,7 @@ namespace HartPR.Entities
 
             context.Players.RemoveRange(context.Players);
             context.Tournaments.RemoveRange(context.Tournaments);
+            context.Sets.RemoveRange(context.Sets);
             context.SaveChanges();
 
             // init seed data
@@ -116,29 +117,7 @@ namespace HartPR.Entities
                     Date = new DateTimeOffset(new DateTime(2007, 4, 20)),
                     CreatedAt = new DateTimeOffset(DateTime.Now),
                     UpdatedAt = new DateTimeOffset(DateTime.Now),
-                    Sets = new List<Set>()
-                    {
-                        new Set()
-                        {
-                            Id = new Guid("fa7ef1f3-5236-4042-8b32-bf82b98ddb46"),
-                            Entrant1Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
-                            Entrant2Id = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"),
-                            WinnerId = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
-                            LoserId = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"),
-                            CreatedAt = new DateTimeOffset(DateTime.Now),
-                            UpdatedAt = new DateTimeOffset(DateTime.Now),
-                        },
-                        new Set()
-                        {
-                            Id = new Guid("a5297b02-f14b-429c-aec4-ef092922e48b"),
-                            Entrant1Id = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
-                            Entrant2Id = new Guid("412c3012-d891-4f5e-9613-ff7aa63e6bb3"),
-                            WinnerId = new Guid("412c3012-d891-4f5e-9613-ff7aa63e6bb3"),
-                            LoserId = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
-                            CreatedAt = new DateTimeOffset(DateTime.Now),
-                            UpdatedAt = new DateTimeOffset(DateTime.Now),
-                        }
-                    }
+                    //todo refactor sets to be FLAT
                 },
                 new Tournament()
                 {
@@ -172,8 +151,35 @@ namespace HartPR.Entities
                 }
             };
 
+            var sets = new List<Set>()
+            {
+                new Set()
+                {
+                    Id = new Guid("fa7ef1f3-5236-4042-8b32-bf82b98ddb46"),
+                    Entrant1Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"), //Moze
+                    Entrant2Id = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"), //leahboo
+                    WinnerId = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+                    LoserId = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now),
+                    TournamentId = new Guid("977974e7-1e4a-4305-8ace-70e8268f4164")
+                },
+                new Set()
+                {
+                    Id = new Guid("a5297b02-f14b-429c-aec4-ef092922e48b"),
+                    Entrant1Id = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"), //PwrUp!
+                    Entrant2Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+                    WinnerId = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
+                    LoserId = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now),
+                    TournamentId = new Guid("a09ee685-1917-4251-be85-09b76b563861")
+                }
+            };
+
             context.Players.AddRange(players);
             context.Tournaments.AddRange(tournaments);
+            context.Sets.AddRange(sets);
             context.SaveChanges();
         }
     }
