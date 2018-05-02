@@ -117,7 +117,15 @@ namespace HartPR
                 // tournaments mapping
                 cfg.CreateMap<Entities.Tournament, Models.TournamentDto>();
 
-                cfg.CreateMap<Models.TournamentDto, Entities.Player>();
+                cfg.CreateMap<Models.TournamentDto, Entities.Tournament>();
+
+                cfg.CreateMap<Models.TournamentForCreationDto, Entities.Tournament>();
+
+                cfg.CreateMap<Models.TournamentForManipulationDto, Entities.Tournament>();
+
+                cfg.CreateMap<Models.TournamentForUpdateDto, Entities.Tournament>();
+
+                cfg.CreateMap<Entities.Tournament, Models.TournamentForUpdateDto>();
             });
 
             hartPRContext.EnsureSeedDataForContext();

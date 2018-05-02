@@ -21,6 +21,9 @@ namespace HartPR.Services
         //tournaments
         PagedList<Tournament> GetTournaments(TournamentsResourceParameters tournamentsResourceParameters);
         Tournament GetTournament(Guid tournamentId);
+        void AddTournament(Tournament tournament);
+        void DeleteTournament(Tournament tournament);
+        void UpdateTournament(Tournament tournament);
         bool Save();
     }
 }

@@ -3,6 +3,7 @@ using HartPR.Entities;
 using HartPR.Helpers;
 using HartPR.Models;
 using HartPR.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -209,6 +210,131 @@ namespace HartPR.Controllers
             linkedResourceToReturn.Add("links", links);
 
             return Ok(linkedResourceToReturn);
+        }
+
+        [HttpPost(Name = "CreateTournament")]
+        public IActionResult CreateTournament([FromBody] TournamentForCreationDto tournament)
+        {
+            if (tournament == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            var tournamentEntity = Mapper.Map<Tournament>(tournament);
+
+            _hartPRRepository.AddTournament(tournamentEntity);
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception("Creating a tournament failed on save.");
+            }
+
+            var tournamentToReturn = Mapper.Map<TournamentDto>(tournamentEntity);
+
+            return CreatedAtRoute("GetTournament",
+                new { id = tournamentToReturn.Id },
+                tournamentToReturn);
+        }
+
+        [HttpDelete("{id}", Name = "DeleteTournament")]
+        public IActionResult DeleteTournament(Guid id)
+        {
+            var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+            if (tournamentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _hartPRRepository.DeleteTournament(tournamentFromRepo);
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception($"Deleting tournament {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateTournament(Guid id,
+            [FromBody] TournamentForUpdateDto tournament)
+        {
+            if (tournament == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+            if (tournamentFromRepo == null)
+            {
+                //not seeing a reason to add upsert implementation to tournament currently.
+                return NotFound();
+            }
+
+            //map
+
+            //apply update
+
+            //map update dto back to entity
+
+            Mapper.Map(tournament, tournamentFromRepo); //TODO: Check if this needs to be configured
+
+            _hartPRRepository.UpdateTournament(tournamentFromRepo);
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception($"Updating tournament {id} failed on save.");
+            }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PartiallyUpdateTournament(Guid id,
+            [FromBody] JsonPatchDocument<TournamentForUpdateDto> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+            if (tournamentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var tournamentToPatch = Mapper.Map<TournamentForUpdateDto>(tournamentFromRepo);
+
+            patchDoc.ApplyTo(tournamentToPatch, ModelState);
+
+            TryValidateModel(tournamentToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            Mapper.Map(tournamentToPatch, tournamentFromRepo);
+
+            _hartPRRepository.UpdateTournament(tournamentFromRepo);
+
+            if (!_hartPRRepository.Save())
+            {
+                throw new Exception($"Patching tournament {id} failed on save.");
+            }
+
+            return NoContent();
         }
     }
 }

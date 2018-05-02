@@ -20,6 +20,7 @@ namespace HartPR.Services
             _propertyMappingService = propertyMappingService;
         }
 
+        #region Players
         public Player GetPlayer(Guid playerId)
         {
             return _context.Players.FirstOrDefault(a => a.Id == playerId);
@@ -99,6 +100,8 @@ namespace HartPR.Services
             return _context.Players.Any(p => p.Id == playerId);
         }
 
+        #endregion
+
         #region Tournaments 
         public PagedList<Tournament> GetTournaments(
             TournamentsResourceParameters tournamentResourceParameters)
@@ -138,6 +141,22 @@ namespace HartPR.Services
         public Tournament GetTournament(Guid tournamentId)
         {
             return _context.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
+        }
+
+        public void AddTournament(Tournament tournament)
+        {
+            tournament.Id = Guid.NewGuid();
+            _context.Tournaments.Add(tournament);
+        }
+
+        public void DeleteTournament(Tournament tournament)
+        {
+            _context.Tournaments.Remove(tournament);
+        }
+
+        public void UpdateTournament(Tournament tournament)
+        {
+            //no code in this implementation
         }
 
         #endregion  

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "HartPR",
-		"_postman_id": "b08a02cc-fc68-5231-4783-807fabc10e5e",
+		"_postman_id": "35500105-86f7-2b47-5f2b-e8cf6a1ab845",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -162,7 +162,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players?searchQuery=michael",
 					"protocol": "http",
@@ -181,8 +184,7 @@
 							"equals": true
 						}
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -384,7 +386,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/tournaments",
 					"protocol": "http",
@@ -396,8 +401,7 @@
 						"api",
 						"tournaments"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -406,7 +410,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/tournaments?OrderBy=Date desc",
 					"protocol": "http",
@@ -425,8 +432,7 @@
 							"equals": true
 						}
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -437,7 +443,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:61775/api/tournaments?orderBy=Date%20desc&pageNumber=2&pageSize=2",
+					"raw": "http://localhost:61775/api/tournaments?orderBy=Date%20desc&pageNumber=2&pageSize=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -460,21 +466,23 @@
 						},
 						{
 							"key": "pageSize",
-							"value": "2",
+							"value": "1",
 							"equals": true
 						}
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "GetTournament(Search)",
+			"name": "GetTournaments(Search)",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/tournaments?searchQuery=tony",
 					"protocol": "http",
@@ -492,6 +500,166 @@
 							"value": "tony",
 							"equals": true
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostTournament(Emerald City II)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Emerald City II\",\n\t\"Website\": \"smashgg\",\n\t\"URL\": \"emerald-city-ii\",\n\t\"Date\": \"2016-02-02\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTournament(Invalid Parameters)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": null,\n\t\"Website\": \"smashgg\",\n\t\"URL\": \"emerald-city-ii\",\n\t\"Date\": \"2032/12/14\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTournament(Dawg Pound)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments/d791d482-b0fb-4598-966a-4abf802253ee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments",
+						"d791d482-b0fb-4598-966a-4abf802253ee"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTournament(Dawg Pound)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Dawg Pound 2: Who Let The Dawgs Out\",\n    \"website\": \"smashgg\",\n    \"subdomain\": null,\n    \"url\": \"dawg-pound-2\",\n    \"date\": \"2016-02-02T00:00:00-08:00\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments/d791d482-b0fb-4598-966a-4abf802253ee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments",
+						"d791d482-b0fb-4598-966a-4abf802253ee"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PatchTournament(Dawg Pound)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"op\": \"replace\",\n\t\t\"path\": \"/website\",\n\t\t\"value\": \"challonge\"\n\t}\t\n]"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments/d791d482-b0fb-4598-966a-4abf802253ee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments",
+						"d791d482-b0fb-4598-966a-4abf802253ee"
 					]
 				},
 				"description": ""

@@ -341,9 +341,6 @@ namespace HartPR.Controllers
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 
-            //TODO: add update validation here!
-
-            //later
             Mapper.Map(playerToPatch, playerFromRepo);
 
             _hartPRRepository.UpdatePlayer(playerFromRepo);
