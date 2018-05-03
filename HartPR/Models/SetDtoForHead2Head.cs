@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HartPR.Models
 {
-    public class SetDtoForPlayer
+    public class SetDtoForHead2Head
     {
         public string Winner { get; set; }
         public string Loser { get; set; }

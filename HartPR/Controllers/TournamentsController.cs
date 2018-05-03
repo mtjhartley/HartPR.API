@@ -336,5 +336,20 @@ namespace HartPR.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}/sets", Name = "GetSetsForTournament")]
+        public IActionResult GetSetsForTournament(Guid id)
+        {
+            var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+
+            if (tournamentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var setsForTournamentFromRepo = _hartPRRepository.GetSetsForTournament(id);
+
+            return Ok(setsForTournamentFromRepo);
+        }
     }
 }

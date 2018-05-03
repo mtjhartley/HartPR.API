@@ -168,12 +168,34 @@ namespace HartPR.Entities
                 {
                     Id = new Guid("a5297b02-f14b-429c-aec4-ef092922e48b"),
                     Entrant1Id = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"), //PwrUp!
-                    Entrant2Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
+                    Entrant2Id = new Guid("1325360c-8253-473a-a20f-55c269c20407"), //Moze
                     WinnerId = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
                     LoserId = new Guid("1325360c-8253-473a-a20f-55c269c20407"),
                     CreatedAt = new DateTimeOffset(DateTime.Now),
                     UpdatedAt = new DateTimeOffset(DateTime.Now),
                     TournamentId = new Guid("a09ee685-1917-4251-be85-09b76b563861")
+                },
+                new Set()
+                {
+                    Id = new Guid("5b906519-822a-4739-b1ae-0a16e0d95ba4"),
+                    Entrant1Id = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"), //PwrUp!
+                    Entrant2Id = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"), //leahboo
+                    WinnerId = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
+                    LoserId = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now),
+                    TournamentId = new Guid("a09ee685-1917-4251-be85-09b76b563861")
+                },
+                new Set()
+                {
+                    Id = new Guid("5c32180e-aab1-4fe6-bdff-c16851cd3aee"),
+                    Entrant1Id = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"), //leahboo
+                    Entrant2Id = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"), //PwrUp!
+                    WinnerId = new Guid("a1da1d8e-1988-4634-b538-a01709477b77"),
+                    LoserId = new Guid("578359b7-1967-41d6-8b87-64ab7605587e"),
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now),
+                    TournamentId = new Guid("d791d482-b0fb-4598-966a-4abf802253ee")
                 }
             };
 

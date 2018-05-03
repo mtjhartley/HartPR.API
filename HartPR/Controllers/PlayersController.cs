@@ -368,6 +368,20 @@ namespace HartPR.Controllers
             return Ok(setsForPlayerFromRepo);
         }
 
+        [HttpGet("head2head/{player1Id}/{player2Id}", Name = "GetHead2HeadBetweenPlayers")]
+        public IActionResult GetHead2HeadBetweenPlayers(Guid player1Id, Guid player2Id)
+        {
+            if (!_hartPRRepository.PlayerExists(player1Id) || !_hartPRRepository.PlayerExists(player2Id))
+            {
+                return NotFound();
+            }
+
+            var setsBetweenPlayers = _hartPRRepository.GetSetsBetweenPlayers(player1Id, player2Id);
+
+            return Ok(setsBetweenPlayers);
+
+        }
+
 
     }
 }

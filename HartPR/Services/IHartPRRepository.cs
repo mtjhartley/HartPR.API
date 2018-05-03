@@ -28,7 +28,8 @@ namespace HartPR.Services
         bool TournamentExists(Guid tournamentId);
         //sets
         IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId);
-        IEnumerable<Set> GetSetsForTournament(Guid tournamentId);
+        IEnumerable<SetDtoForTournament> GetSetsForTournament(Guid tournamentId);
+        IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id);
         bool Save();
     }
 }
