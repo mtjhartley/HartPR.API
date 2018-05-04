@@ -30,6 +30,11 @@ namespace HartPR.Services
         IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId);
         IEnumerable<SetDtoForTournament> GetSetsForTournament(Guid tournamentId);
         IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id);
+        Set GetSet(Guid setId);
+        SetDtoForDisplay GetSetForDisplay(Guid setId);
+        void AddSet(Set set);
+        void DeleteSet(Set set);
+        void UpdateSet(Set set);
         bool Save();
     }
 }

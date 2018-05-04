@@ -40,6 +40,7 @@ namespace HartPR.Entities
         [ForeignKey("TournamentId")]
         public Tournament Tournament { get; set; }
 
+        [Required]
         public Guid TournamentId { get; set; }
     }
 }

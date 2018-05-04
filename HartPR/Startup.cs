@@ -128,7 +128,17 @@ namespace HartPR
                 cfg.CreateMap<Entities.Tournament, Models.TournamentForUpdateDto>();
 
                 // set mapping
-                cfg.CreateMap<Entities.Set, Models.SetDto>();
+                cfg.CreateMap<Entities.Set, Models.SetDtoForDisplay>();
+
+                cfg.CreateMap<Models.SetDto, Entities.Set>();
+
+                cfg.CreateMap<Models.SetForCreationDto, Entities.Set>();
+
+                cfg.CreateMap<Models.SetForManipulationDto, Entities.Set>();
+
+                cfg.CreateMap<Models.SetForUpdateDto, Entities.Set>();
+
+                cfg.CreateMap<Entities.Set, Models.SetForUpdateDto>();
 
             });
 

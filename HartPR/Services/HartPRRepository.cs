@@ -233,6 +233,52 @@ namespace HartPR.Services
             return head2HeadSets;
         }
 
+        public Set GetSet(Guid setId)
+        {
+            return _context.Sets.FirstOrDefault(s => s.Id == setId);
+        }
+
+        public SetDtoForDisplay GetSetForDisplay(Guid setId)
+        {
+            var set = (from s in _context.Sets
+                       join winner in _context.Players on s.WinnerId equals winner.Id
+                       join loser in _context.Players on s.LoserId equals loser.Id
+                       join tournament in _context.Tournaments on s.TournamentId equals tournament.Id
+                       where s.Id == setId
+
+                       select new SetDtoForDisplay()
+                       {
+                           Entrant1Id = s.Entrant1Id,
+                           Entrant2Id = s.Entrant2Id,
+                           Winner = winner.Tag,
+                           Loser = loser.Tag,
+                           WinnerId = s.WinnerId,
+                           LoserId = s.LoserId,
+                           Tournament = tournament.Name,
+                           TournamentId = tournament.Id,
+                       }
+                       ).FirstOrDefault();
+
+            return set;
+        }
+
+        public void AddSet(Set set)
+        {
+            set.Id = Guid.NewGuid();
+            _context.Sets.Add(set);
+            // the repository fills the id (instead of using identity columns)
+        }
+
+        public void DeleteSet(Set set)
+        {
+            _context.Sets.Remove(set);
+        }
+
+        public void UpdateSet(Set set)
+        {
+            //no code in this implementation
+        }
+
         #endregion  
 
         public bool Save()

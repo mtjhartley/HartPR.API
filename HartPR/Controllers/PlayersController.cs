@@ -379,7 +379,6 @@ namespace HartPR.Controllers
             var setsBetweenPlayers = _hartPRRepository.GetSetsBetweenPlayers(player1Id, player2Id);
 
             return Ok(setsBetweenPlayers);
-
         }
 
 

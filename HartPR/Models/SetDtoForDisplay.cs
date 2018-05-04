@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace HartPR.Models
 {
-    public class SetDto
+    public class SetDtoForDisplay
     {
-        public Guid Id { get; set; }
-
         public Guid Entrant1Id { get; set; }
 
         public Guid Entrant2Id { get; set; }
@@ -16,6 +14,10 @@ namespace HartPR.Models
         public Guid WinnerId { get; set; }
 
         public Guid LoserId { get; set; }
+
+        public string Winner { get; set; }
+        public string Loser { get; set; }
+        public string Tournament { get; set; }
 
         public Guid TournamentId { get; set; }
     }
