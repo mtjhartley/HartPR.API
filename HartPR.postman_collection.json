@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "HartPR",
-		"_postman_id": "35500105-86f7-2b47-5f2b-e8cf6a1ab845",
+		"_postman_id": "fda07b5e-b292-9b15-40c3-d518f6cfc1fd",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -48,7 +48,8 @@
 							"equals": true
 						}
 					]
-				}
+				},
+				"description": null
 			},
 			"response": []
 		},
@@ -441,7 +442,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/tournaments?orderBy=Date%20desc&pageNumber=2&pageSize=1",
 					"protocol": "http",
@@ -534,8 +538,7 @@
 						"api",
 						"tournaments"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -568,8 +571,7 @@
 						"api",
 						"tournaments"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -578,7 +580,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/tournaments/d791d482-b0fb-4598-966a-4abf802253ee",
 					"protocol": "http",
@@ -591,8 +596,7 @@
 						"tournaments",
 						"d791d482-b0fb-4598-966a-4abf802253ee"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -626,8 +630,7 @@
 						"tournaments",
 						"d791d482-b0fb-4598-966a-4abf802253ee"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -660,6 +663,273 @@
 						"api",
 						"tournaments",
 						"d791d482-b0fb-4598-966a-4abf802253ee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSetsForPlayer(Moze)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players/1325360c-8253-473a-a20f-55c269c20407/sets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"1325360c-8253-473a-a20f-55c269c20407",
+						"sets"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetSetsForPlayer(leahboo)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/players/a1da1d8e-1988-4634-b538-a01709477b77/sets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"players",
+						"a1da1d8e-1988-4634-b538-a01709477b77",
+						"sets"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetSetsForTournament(ShrekFest3)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/tournaments/a09ee685-1917-4251-be85-09b76b563861/sets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"tournaments",
+						"a09ee685-1917-4251-be85-09b76b563861",
+						"sets"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetSet(1)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/sets/5b906519-822a-4739-b1ae-0a16e0d95ba4/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"sets",
+						"5b906519-822a-4739-b1ae-0a16e0d95ba4",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetSetForDisplay(1)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:61775/api/sets/5b906519-822a-4739-b1ae-0a16e0d95ba4/display",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"sets",
+						"5b906519-822a-4739-b1ae-0a16e0d95ba4",
+						"display"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PostSet(1)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"entrant1Id\": \"578359b7-1967-41d6-8b87-64ab7605587e\",\n    \"entrant2Id\": \"a1da1d8e-1988-4634-b538-a01709477b77\",\n    \"winnerId\": \"578359b7-1967-41d6-8b87-64ab7605587e\",\n    \"loserId\": \"a1da1d8e-1988-4634-b538-a01709477b77\",\n    \"tournamentId\": \"a09ee685-1917-4251-be85-09b76b563861\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/sets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"sets"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSet(1)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/sets/5b906519-822a-4739-b1ae-0a16e0d95ba4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"sets",
+						"5b906519-822a-4739-b1ae-0a16e0d95ba4"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSet(1)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"entrant1Id\": \"578359b7-1967-41d6-8b87-64ab7605587e\",\n    \"entrant2Id\": \"a1da1d8e-1988-4634-b538-a01709477b77\",\n    \"winnerId\": \"578359b7-1967-41d6-8b87-64ab7605587e\",\n    \"loserId\": \"a1da1d8e-1988-4634-b538-a01709477b77\",\n    \"tournamentId\": \"977974e7-1e4a-4305-8ace-70e8268f4164\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/sets/5b906519-822a-4739-b1ae-0a16e0d95ba4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"sets",
+						"5b906519-822a-4739-b1ae-0a16e0d95ba4"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PatchSet(1)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"op\": \"replace\",\n\t\t\"path\": \"/tournamentId\",\n\t\t\"value\": \"977974e7-1e4a-4305-8ace-70e8268f4164\"\n\t}\t\n]"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/sets/5b906519-822a-4739-b1ae-0a16e0d95ba4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"sets",
+						"5b906519-822a-4739-b1ae-0a16e0d95ba4"
 					]
 				},
 				"description": ""
