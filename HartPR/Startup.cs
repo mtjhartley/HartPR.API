@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreRateLimit;
 using HartPR.Entities;
 using HartPR.Services;
 using Microsoft.AspNetCore.Builder;
@@ -63,6 +64,41 @@ namespace HartPR
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
 
             services.AddTransient<ITypeHelperService, TypeHelperService>();
+
+            //implementing headers
+            services.AddHttpCacheHeaders((expirationModelOptions)
+                =>
+                { expirationModelOptions.MaxAge = 600; },
+                (validationModelOptions)
+                =>
+                { validationModelOptions.AddMustRevalidate = true; }
+                );
+            //implement caching and optimistic concurrency
+            services.AddResponseCaching();
+
+            services.AddMemoryCache();
+
+            services.Configure<IpRateLimitOptions>((options) =>
+            {
+                options.GeneralRules = new System.Collections.Generic.List<RateLimitRule>()
+                {
+                    new RateLimitRule()
+                    {
+                        Endpoint = "*",
+                        Limit = 1000,
+                        Period = "5m"
+                    },
+                    new RateLimitRule()
+                    {
+                        Endpoint = "*",
+                        Limit = 200,
+                        Period = "10s"
+                    },
+                };
+            });
+
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -144,6 +180,13 @@ namespace HartPR
 
             //comment out this line when doing db migrations
             hartPRContext.EnsureSeedDataForContext();
+
+            //add first to reject requests.
+            app.UseIpRateLimiting();
+
+            app.UseResponseCaching();
+
+            app.UseHttpCacheHeaders();
 
             app.UseMvc();
         }

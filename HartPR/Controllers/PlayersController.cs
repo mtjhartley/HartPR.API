@@ -33,6 +33,7 @@ namespace HartPR.Controllers
         }
 
         [HttpGet(Name = "GetPlayers")]
+        [HttpHead]
         public IActionResult GetPlayers(PlayersResourceParameters playersResourceParameters)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<PlayerDto, Player>
@@ -379,6 +380,13 @@ namespace HartPR.Controllers
             var setsBetweenPlayers = _hartPRRepository.GetSetsBetweenPlayers(player1Id, player2Id);
 
             return Ok(setsBetweenPlayers);
+        }
+
+        [HttpOptions]
+        public IActionResult GetPlayersOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            return Ok();
         }
 
 
