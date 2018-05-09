@@ -13,6 +13,7 @@ namespace HartPR.Entities
             context.Players.RemoveRange(context.Players);
             context.Tournaments.RemoveRange(context.Tournaments);
             context.Sets.RemoveRange(context.Sets);
+            context.Users.RemoveRange(context.Users);
             context.SaveChanges();
 
             // init seed data
@@ -199,9 +200,37 @@ namespace HartPR.Entities
                 }
             };
 
+            var users = new List<User>()
+            {
+                new User()
+                {
+                    Id = new Guid("730cc3c7-a286-4563-b113-1fbe2993bf4d"),
+                    FirstName = "Michael",
+                    LastName = "Hartley",
+                    Email = "mtjhartley@gmail.com",
+                    Password = "unhashed password lol",
+                    IsAdmin = true,
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now),
+                },
+               new User()
+               {
+                    Id = new Guid("c4e02165-94f5-422f-8c1e-9284c4625e01"),
+                    FirstName = "Mitch",
+                    LastName = "Dzugan",
+                    Email = "mitchdzugan@gmail.com",
+                    Password = "password",
+                    IsAdmin = true,
+                    CreatedAt = new DateTimeOffset(DateTime.Now),
+                    UpdatedAt = new DateTimeOffset(DateTime.Now),
+               },
+            };
+
             context.Players.AddRange(players);
             context.Tournaments.AddRange(tournaments);
             context.Sets.AddRange(sets);
+            context.Users.AddRange(users);
+
             context.SaveChanges();
         }
     }

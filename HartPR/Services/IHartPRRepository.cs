@@ -36,5 +36,6 @@ namespace HartPR.Services
         void DeleteSet(Set set);
         void UpdateSet(Set set);
         bool Save();
+        User GetUserByEmail(string email);
     }
 }

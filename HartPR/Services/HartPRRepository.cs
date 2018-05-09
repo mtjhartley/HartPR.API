@@ -279,7 +279,16 @@ namespace HartPR.Services
             //no code in this implementation
         }
 
-        #endregion  
+        #endregion
+
+        #region User
+
+        public User GetUserByEmail(string email)
+        {
+            return _context.Users.SingleOrDefault(user => user.Email == email);
+        }
+
+        #endregion
 
         public bool Save()
         {

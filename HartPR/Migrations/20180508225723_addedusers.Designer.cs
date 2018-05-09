@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180508225723_addedusers")]
+    partial class addedusers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
