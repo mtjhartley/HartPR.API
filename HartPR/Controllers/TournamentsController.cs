@@ -3,6 +3,7 @@ using HartPR.Entities;
 using HartPR.Helpers;
 using HartPR.Models;
 using HartPR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HartPR.Controllers
 {
+    [Authorize]
     [Route("api/tournaments")]
     public class TournamentsController : Controller
     {
@@ -31,7 +33,9 @@ namespace HartPR.Controllers
             _typeHelperService = typeHelperService;
         }
 
+        [AllowAnonymous]
         [HttpGet(Name = "GetTournaments")]
+        [HttpHead]
         public IActionResult GetTournaments(TournamentsResourceParameters tournamentsResourceParameters)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<TournamentDto, Tournament>
@@ -184,6 +188,7 @@ namespace HartPR.Controllers
             return links;
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}", Name = "GetTournament")]
         public IActionResult GetTournament(Guid id, [FromQuery] string fields)
         {
@@ -337,6 +342,7 @@ namespace HartPR.Controllers
             return NoContent();
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}/sets", Name = "GetSetsForTournament")]
         public IActionResult GetSetsForTournament(Guid id)
         {
@@ -350,6 +356,14 @@ namespace HartPR.Controllers
             var setsForTournamentFromRepo = _hartPRRepository.GetSetsForTournament(id);
 
             return Ok(setsForTournamentFromRepo);
+        }
+
+        [AllowAnonymous]
+        [HttpOptions]
+        public IActionResult GetTournamentsOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS");
+            return Ok();
         }
     }
 }

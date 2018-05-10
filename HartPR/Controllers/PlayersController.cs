@@ -10,9 +10,11 @@ using HartPR.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HartPR.Controllers
 {
+    [Authorize]
     [Route("api/players")]
     public class PlayersController : Controller
     {
@@ -32,6 +34,7 @@ namespace HartPR.Controllers
             _typeHelperService = typeHelperService;
         }
 
+        [AllowAnonymous]
         [HttpGet(Name = "GetPlayers")]
         [HttpHead]
         public IActionResult GetPlayers(PlayersResourceParameters playersResourceParameters)
@@ -189,6 +192,7 @@ namespace HartPR.Controllers
             return links;
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}", Name = "GetPlayer")]
         public IActionResult GetPlayer(Guid id, [FromQuery] string fields)
         {
@@ -354,6 +358,7 @@ namespace HartPR.Controllers
             return NoContent();
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}/sets", Name = "GetSetsForPlayer")]
         public IActionResult GetSetsForPlayer(Guid id)
         {
@@ -369,6 +374,7 @@ namespace HartPR.Controllers
             return Ok(setsForPlayerFromRepo);
         }
 
+        [AllowAnonymous]
         [HttpGet("head2head/{player1Id}/{player2Id}", Name = "GetHead2HeadBetweenPlayers")]
         public IActionResult GetHead2HeadBetweenPlayers(Guid player1Id, Guid player2Id)
         {
@@ -382,10 +388,11 @@ namespace HartPR.Controllers
             return Ok(setsBetweenPlayers);
         }
 
+        [AllowAnonymous]
         [HttpOptions]
         public IActionResult GetPlayersOptions()
         {
-            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            Response.Headers.Add("Allow", "GET, OPTIONS");
             return Ok();
         }
 

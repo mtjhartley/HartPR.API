@@ -3,6 +3,7 @@ using HartPR.Entities;
 using HartPR.Helpers;
 using HartPR.Models;
 using HartPR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HartPR.Controllers
 {
+    [Authorize]
     [Route("api/sets")]
     public class SetsController : Controller
     {
@@ -31,6 +33,7 @@ namespace HartPR.Controllers
             _typeHelperService = typeHelperService;
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}", Name="GetSet")]
         public IActionResult GetSet(Guid id)
         {
@@ -45,6 +48,7 @@ namespace HartPR.Controllers
             return Ok(set);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}/display", Name = "GetSetForDisplay")]
         public IActionResult GetSetForDisplay(Guid id)
         {
@@ -86,7 +90,6 @@ namespace HartPR.Controllers
                 new { id = setToReturn.Id },
                 setToReturn);
         }
-    
 
         [HttpDelete("{id}", Name = "DeleteSet")]
         public IActionResult DeleteSet(Guid id)
@@ -145,6 +148,7 @@ namespace HartPR.Controllers
 
             return NoContent();
         }
+
         //If a set is patched for the players, then both the Entrant and the Player need to be updated..
         [HttpPatch("{id}")]
         public IActionResult PartiallyUpdateSet(Guid id,
@@ -183,20 +187,5 @@ namespace HartPR.Controllers
 
             return NoContent();
         }
-
-        //[HttpGet(Name = "GetSetsForTournament")]
-        //public IActionResult GetSetsForTournament(Guid tournamentId)
-        //{
-        //    if (!_hartPRRepository.TournamentExists(tournamentId))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var setsForTournamentFromRepo = _hartPRRepository.GetSetsForTournament(tournamentId);
-
-        //    var setsForTournament = Mapper.Map<IEnumerable<SetDto>>(setsForTournamentFromRepo);
-
-        //    return Ok(setsForTournament);
-        //}
     }
 }
