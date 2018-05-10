@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "HartPR",
-		"_postman_id": "fda07b5e-b292-9b15-40c3-d518f6cfc1fd",
+		"_postman_id": "d944196a-39db-0a96-4f78-8d604eb1a168",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -48,8 +48,7 @@
 							"equals": true
 						}
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -682,7 +681,10 @@
 						"value": "application/json"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players/1325360c-8253-473a-a20f-55c269c20407/sets",
 					"protocol": "http",
@@ -696,8 +698,7 @@
 						"1325360c-8253-473a-a20f-55c269c20407",
 						"sets"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -706,7 +707,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/players/a1da1d8e-1988-4634-b538-a01709477b77/sets",
 					"protocol": "http",
@@ -720,8 +724,7 @@
 						"a1da1d8e-1988-4634-b538-a01709477b77",
 						"sets"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -730,7 +733,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/tournaments/a09ee685-1917-4251-be85-09b76b563861/sets",
 					"protocol": "http",
@@ -744,8 +750,7 @@
 						"a09ee685-1917-4251-be85-09b76b563861",
 						"sets"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -754,7 +759,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/sets/5b906519-822a-4739-b1ae-0a16e0d95ba4/",
 					"protocol": "http",
@@ -768,8 +776,7 @@
 						"5b906519-822a-4739-b1ae-0a16e0d95ba4",
 						""
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -778,7 +785,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:61775/api/sets/5b906519-822a-4739-b1ae-0a16e0d95ba4/display",
 					"protocol": "http",
@@ -792,8 +802,7 @@
 						"5b906519-822a-4739-b1ae-0a16e0d95ba4",
 						"display"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -826,8 +835,7 @@
 						"api",
 						"sets"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -861,8 +869,7 @@
 						"sets",
 						"5b906519-822a-4739-b1ae-0a16e0d95ba4"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -896,8 +903,7 @@
 						"sets",
 						"5b906519-822a-4739-b1ae-0a16e0d95ba4"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -930,6 +936,114 @@
 						"api",
 						"sets",
 						"5b906519-822a-4739-b1ae-0a16e0d95ba4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsers(All)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjU4ODU2NDMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjE3NzUvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo2MTc3NS8ifQ.D3K7HFR8zb4zlB9gNk_tRZJhJ7u1GlyFg6FrPZlACSM"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\tusername: \"Michael\",\n\tpassword: \"Hartley\",\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/token/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"token",
+						"users"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterUser(Gary)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Gary\",\n\t\"lastName\": \"Mai\",\n\t\"email\": \"garymaitai@gmail.com\",\n\t\"password\": \"password\",\n\t\"passwordConfirmation\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/token/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"token",
+						"register"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "LoginUser(Mitch)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"mitchdzugan@gmail.com\",\n\t\"password\": \"password\",\n}"
+				},
+				"url": {
+					"raw": "http://localhost:61775/api/token/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61775",
+					"path": [
+						"api",
+						"token",
+						""
 					]
 				},
 				"description": ""

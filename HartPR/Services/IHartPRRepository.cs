@@ -37,5 +37,7 @@ namespace HartPR.Services
         void UpdateSet(Set set);
         bool Save();
         User GetUserByEmail(string email);
+        IEnumerable<User> GetUsers();
+        void AddUser(User newUser);
     }
 }

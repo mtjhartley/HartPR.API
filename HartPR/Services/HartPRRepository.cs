@@ -288,6 +288,16 @@ namespace HartPR.Services
             return _context.Users.SingleOrDefault(user => user.Email == email);
         }
 
+        public IEnumerable<User> GetUsers()
+        {
+            return _context.Users.ToList();
+        }
+
+        public void AddUser(User user)
+        {
+            _context.Users.Add(user);
+        }
+
         #endregion
 
         public bool Save()

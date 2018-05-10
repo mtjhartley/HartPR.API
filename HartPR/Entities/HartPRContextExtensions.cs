@@ -219,7 +219,7 @@ namespace HartPR.Entities
                     FirstName = "Mitch",
                     LastName = "Dzugan",
                     Email = "mitchdzugan@gmail.com",
-                    Password = "password",
+                    Password = "AQAAAAEAACcQAAAAEBCySMALfrT8FbzSfoQGJBnH2hM2Qi1g2W/k+gexflDG1NTxZjfY50mwYWLV7+dUaw==",
                     IsAdmin = true,
                     CreatedAt = new DateTimeOffset(DateTime.Now),
                     UpdatedAt = new DateTimeOffset(DateTime.Now),
