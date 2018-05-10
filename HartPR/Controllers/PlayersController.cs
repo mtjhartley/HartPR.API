@@ -236,6 +236,8 @@ namespace HartPR.Controllers
             }
 
             var playerEntity = Mapper.Map<Player>(player);
+            playerEntity.CreatedAt = new DateTimeOffset(DateTime.Now);
+            playerEntity.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.AddPlayer(playerEntity);
 
@@ -286,6 +288,7 @@ namespace HartPR.Controllers
             }
 
             var playerFromRepo = _hartPRRepository.GetPlayer(id);
+
             if (playerFromRepo == null)
             {
                 //Player upserting implementation
@@ -310,6 +313,7 @@ namespace HartPR.Controllers
 
             //map update dto back to entity
             Mapper.Map(player, playerFromRepo);
+            playerFromRepo.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.UpdatePlayer(playerFromRepo); //calling into this empty method 
 
@@ -347,6 +351,7 @@ namespace HartPR.Controllers
             }
 
             Mapper.Map(playerToPatch, playerFromRepo);
+            playerFromRepo.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.UpdatePlayer(playerFromRepo);
 

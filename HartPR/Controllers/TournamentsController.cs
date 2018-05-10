@@ -231,6 +231,8 @@ namespace HartPR.Controllers
             }
 
             var tournamentEntity = Mapper.Map<Tournament>(tournament);
+            tournamentEntity.CreatedAt = new DateTimeOffset(DateTime.Now);
+            tournamentEntity.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.AddTournament(tournamentEntity);
 
@@ -280,6 +282,7 @@ namespace HartPR.Controllers
             }
 
             var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+
             if (tournamentFromRepo == null)
             {
                 //not seeing a reason to add upsert implementation to tournament currently.
@@ -293,6 +296,7 @@ namespace HartPR.Controllers
             //map update dto back to entity
 
             Mapper.Map(tournament, tournamentFromRepo); //TODO: Check if this needs to be configured
+            tournamentFromRepo.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.UpdateTournament(tournamentFromRepo);
 
@@ -331,6 +335,7 @@ namespace HartPR.Controllers
             }
 
             Mapper.Map(tournamentToPatch, tournamentFromRepo);
+            tournamentFromRepo.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.UpdateTournament(tournamentFromRepo);
 

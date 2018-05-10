@@ -76,6 +76,8 @@ namespace HartPR.Controllers
             }
 
             var setEntity = Mapper.Map<Set>(set);
+            setEntity.CreatedAt = new DateTimeOffset(DateTime.Now);
+            setEntity.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.AddSet(setEntity);
 
@@ -138,6 +140,7 @@ namespace HartPR.Controllers
             //map update dto back to entity
 
             Mapper.Map(set, setFromRepo); //TODO: Check if this needs to be configured
+            setFromRepo.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.UpdateSet(setFromRepo);
 
@@ -177,6 +180,7 @@ namespace HartPR.Controllers
             }
 
             Mapper.Map(setToPatch, setFromRepo);
+            setFromRepo.UpdatedAt = new DateTimeOffset(DateTime.Now);
 
             _hartPRRepository.UpdateSet(setFromRepo);
 
