@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180512180950_addsggidtotournaments")]
+    partial class addsggidtotournaments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +55,10 @@ namespace HartPR.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTimeOffset>("CreatedAt");
+
+                    b.Property<Guid>("Entrant1Id");
+
+                    b.Property<Guid>("Entrant2Id");
 
                     b.Property<Guid>("LoserId");
 

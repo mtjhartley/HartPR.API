@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace HartPR.Entities
 {
-    //TODO change Entrant1Id and Entrant2Id to Smashgg ids. 
     public class Set
     {
         [Key]
@@ -18,12 +17,6 @@ namespace HartPR.Entities
         //Should these be my Database Player Ids? 
 
         //Should these be the actual entrantids on challonge/sgg, and then use a lookup table for my Guid to this entrantId? pros/cons?
-        [Required]
-        public Guid Entrant1Id { get; set; }
-
-        [Required]
-        public Guid Entrant2Id { get; set; }
-
         [Required]
         public Guid WinnerId { get; set; }
 

@@ -9,12 +9,6 @@ namespace HartPR.Models
     public abstract class SetForManipulationDto
     {
         [Required]
-        public Guid Entrant1Id { get; set; }
-
-        [Required]
-        public Guid Entrant2Id { get; set; }
-
-        [Required]
         public Guid WinnerId { get; set; }
 
         [Required]

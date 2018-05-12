@@ -216,8 +216,8 @@ namespace HartPR.Services
                                  join winner in _context.Players on set.WinnerId equals winner.Id
                                  join loser in _context.Players on set.LoserId equals loser.Id
                                  join tournament in _context.Tournaments on set.TournamentId equals tournament.Id
-                                 where (set.Entrant1Id == player1Id && set.Entrant2Id == player2Id) ||
-                                    (set.Entrant1Id == player2Id && set.Entrant2Id == player1Id)
+                                 where (set.WinnerId == player1Id && set.LoserId == player2Id) ||
+                                    (set.WinnerId == player2Id && set.LoserId == player1Id)
 
                                  select new SetDtoForHead2Head()
                                  {
@@ -248,8 +248,6 @@ namespace HartPR.Services
 
                        select new SetDtoForDisplay()
                        {
-                           Entrant1Id = s.Entrant1Id,
-                           Entrant2Id = s.Entrant2Id,
                            Winner = winner.Tag,
                            Loser = loser.Tag,
                            WinnerId = s.WinnerId,

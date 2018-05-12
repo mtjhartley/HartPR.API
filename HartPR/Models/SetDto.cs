@@ -9,10 +9,6 @@ namespace HartPR.Models
     {
         public Guid Id { get; set; }
 
-        public Guid Entrant1Id { get; set; }
-
-        public Guid Entrant2Id { get; set; }
-
         public Guid WinnerId { get; set; }
 
         public Guid LoserId { get; set; }

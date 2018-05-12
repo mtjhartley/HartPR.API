@@ -19,6 +19,8 @@ namespace HartPR.Entities
         public string URL { get; set; }
         [Required]
         public DateTimeOffset Date { get; set; }
+
+        public int SggTournamentId { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
 
