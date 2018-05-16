@@ -209,7 +209,7 @@ namespace HartPR
             });
 
             //comment out this line when doing db migrations
-            hartPRContext.EnsureSeedDataForContext();
+            //hartPRContext.EnsureSeedDataForContext();
 
             //add first to reject requests.
             app.UseIpRateLimiting();

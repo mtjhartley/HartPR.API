@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180515162457_addedlastactivecolumnforplayer")]
+    partial class addedlastactivecolumnforplayer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,24 +104,6 @@ namespace HartPR.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tournaments");
-                });
-
-            modelBuilder.Entity("HartPR.Entities.TrueskillHistory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("PlayerId");
-
-                    b.Property<DateTimeOffset>("TournamentDate");
-
-                    b.Property<Guid>("TournamentId");
-
-                    b.Property<double>("Trueskill");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TrueskillHistories");
                 });
 
             modelBuilder.Entity("HartPR.Entities.User", b =>

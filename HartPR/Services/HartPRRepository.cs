@@ -174,12 +174,15 @@ namespace HartPR.Services
                               join winner in _context.Players on set.WinnerId equals winner.Id
                               join loser in _context.Players on set.LoserId equals loser.Id
                               join tournament in _context.Tournaments on set.TournamentId equals tournament.Id
-                              where set.WinnerId == playerId || set.LoserId == playerId
+                              where (set.WinnerId == playerId || set.LoserId == playerId)
+                              && set.LoserScore != -1
 
                               select new SetDtoForPlayer()
                               {
                                   Winner = winner.Tag,
                                   Loser = loser.Tag,
+                                  WinnerScore = set.WinnerScore,
+                                  LoserScore = set.LoserScore,
                                   WinnerId = set.WinnerId,
                                   LoserId = set.LoserId,
                                   Tournament = tournament.Name,
@@ -196,12 +199,14 @@ namespace HartPR.Services
                                   join winner in _context.Players on set.WinnerId equals winner.Id
                                   join loser in _context.Players on set.LoserId equals loser.Id
                                   join tournament in _context.Tournaments on set.TournamentId equals tournament.Id
-                                  where set.TournamentId == tournamentId
+                                  where set.TournamentId == tournamentId && set.LoserScore != -1
 
                                   select new SetDtoForTournament()
                                   {
                                       Winner = winner.Tag,
                                       Loser = loser.Tag,
+                                      WinnerScore = set.WinnerScore,
+                                      LoserScore = set.LoserScore,
                                       WinnerId = set.WinnerId,
                                       LoserId = set.LoserId
                                   }
@@ -216,13 +221,15 @@ namespace HartPR.Services
                                  join winner in _context.Players on set.WinnerId equals winner.Id
                                  join loser in _context.Players on set.LoserId equals loser.Id
                                  join tournament in _context.Tournaments on set.TournamentId equals tournament.Id
-                                 where (set.WinnerId == player1Id && set.LoserId == player2Id) ||
-                                    (set.WinnerId == player2Id && set.LoserId == player1Id)
+                                 where (((set.WinnerId == player1Id && set.LoserId == player2Id) ||
+                                    (set.WinnerId == player2Id && set.LoserId == player1Id)) && set.LoserScore != -1)
 
                                  select new SetDtoForHead2Head()
                                  {
                                      Winner = winner.Tag,
                                      Loser = loser.Tag,
+                                     WinnerScore = set.WinnerScore,
+                                     LoserScore = set.LoserScore,
                                      WinnerId = set.WinnerId,
                                      LoserId = set.LoserId,
                                      Tournament = tournament.Name,
@@ -252,6 +259,8 @@ namespace HartPR.Services
                            Loser = loser.Tag,
                            WinnerId = s.WinnerId,
                            LoserId = s.LoserId,
+                           WinnerScore = s.WinnerScore,
+                           LoserScore = s.LoserScore,
                            Tournament = tournament.Name,
                            TournamentId = tournament.Id,
                        }
@@ -301,6 +310,16 @@ namespace HartPR.Services
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public IEnumerable<TrueskillHistory> GetTrueskillHistoryForPlayer(Guid playerId)
+        {
+            return _context.TrueskillHistories.Where(p => p.PlayerId == playerId)
+                .OrderByDescending(p => p.TournamentDate)
+                .ToList();
+
+            //TODO: Evaluate if it is necessary to make a custom linq query to grab Tournament Name? shouldn't be too hard.
+            //Just some joins
         }
 
 

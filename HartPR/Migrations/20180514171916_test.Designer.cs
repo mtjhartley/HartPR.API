@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180514171916_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +29,6 @@ namespace HartPR.Migrations
                     b.Property<DateTimeOffset>("CreatedAt");
 
                     b.Property<string>("FirstName");
-
-                    b.Property<DateTimeOffset?>("LastActive");
 
                     b.Property<string>("LastName");
 
@@ -59,15 +58,11 @@ namespace HartPR.Migrations
 
                     b.Property<Guid>("LoserId");
 
-                    b.Property<int?>("LoserScore");
-
                     b.Property<Guid>("TournamentId");
 
                     b.Property<DateTimeOffset>("UpdatedAt");
 
                     b.Property<Guid>("WinnerId");
-
-                    b.Property<int?>("WinnerScore");
 
                     b.HasKey("Id");
 
@@ -103,24 +98,6 @@ namespace HartPR.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tournaments");
-                });
-
-            modelBuilder.Entity("HartPR.Entities.TrueskillHistory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("PlayerId");
-
-                    b.Property<DateTimeOffset>("TournamentDate");
-
-                    b.Property<Guid>("TournamentId");
-
-                    b.Property<double>("Trueskill");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TrueskillHistories");
                 });
 
             modelBuilder.Entity("HartPR.Entities.User", b =>

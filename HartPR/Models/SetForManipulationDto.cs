@@ -16,5 +16,8 @@ namespace HartPR.Models
 
         [Required]
         public Guid TournamentId { get; set; }
+
+        public int WinnerScore { get; set; }
+        public int LoserScore { get; set; }
     }
 }

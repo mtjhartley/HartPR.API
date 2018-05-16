@@ -23,8 +23,8 @@ namespace HartPR.Entities
         [Required]
         public Guid LoserId { get; set; }
 
-        //public int WinnerScore {get;set;}
-        //public int LoserScore {get;set;}
+        public int? WinnerScore {get;set;}
+        public int? LoserScore {get;set;}
 
         public DateTimeOffset CreatedAt { get; set; }
 

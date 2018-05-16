@@ -31,5 +31,7 @@ namespace HartPR.Entities
 
         public DateTimeOffset UpdatedAt { get; set; }
 
+        public DateTimeOffset? LastActive { get; set; }
+
     }
 }

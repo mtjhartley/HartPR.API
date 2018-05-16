@@ -401,6 +401,22 @@ namespace HartPR.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
+        [HttpGet("{id}/trueskillhistory", Name = "GetTrueskillHistoryForPlayer")]
+        public IActionResult GetTrueskillHistoryForPlayer(Guid id)
+        {
+            var trueskillHistoryFromRepo = _hartPRRepository.GetTrueskillHistoryForPlayer(id);
+
+            if (trueskillHistoryFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(trueskillHistoryFromRepo);
+
+            //Don't think I can map anything important with this data. Maybe map AWAY the ID and the playerId, as these are either unnecessary or known.
+        }
+
 
     }
 }

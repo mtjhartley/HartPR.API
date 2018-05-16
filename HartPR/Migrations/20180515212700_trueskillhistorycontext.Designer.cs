@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180515212700_trueskillhistorycontext")]
+    partial class trueskillhistorycontext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,7 +115,7 @@ namespace HartPR.Migrations
 
                     b.Property<DateTimeOffset>("TournamentDate");
 
-                    b.Property<Guid>("TournamentId");
+                    b.Property<string>("TournamentName");
 
                     b.Property<double>("Trueskill");
 
