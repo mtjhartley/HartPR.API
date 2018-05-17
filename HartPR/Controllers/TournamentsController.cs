@@ -180,10 +180,10 @@ namespace HartPR.Controllers
                   "GET"));
             }
 
-            links.Add(
-              new LinkDto(_urlHelper.Link("DeleteTournament", new { id = id }),
-              "delete_tournament",
-              "DELETE"));
+            //links.Add(
+            //  new LinkDto(_urlHelper.Link("DeleteTournament", new { id = id }),
+            //  "delete_tournament",
+            //  "DELETE"));
 
             return links;
         }
@@ -361,6 +361,24 @@ namespace HartPR.Controllers
             var setsForTournamentFromRepo = _hartPRRepository.GetSetsForTournament(id);
 
             return Ok(setsForTournamentFromRepo);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}/players", Name = "GetPlayersForTournament")]
+        public IActionResult GetPlayersForTournament(Guid id)
+        {
+            var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+
+            if (tournamentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var playersForTournamentFromRepo = _hartPRRepository.GetPlayersForTournament(id);
+
+            var players = Mapper.Map<IEnumerable<PlayerDto>>(playersForTournamentFromRepo);
+
+            return Ok(players);
         }
 
         [AllowAnonymous]

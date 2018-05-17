@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180516163621_split-trueskill-mu-sigma")]
+    partial class splittrueskillmusigma
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +42,9 @@ namespace HartPR.Migrations
                     b.Property<string>("Tag")
                         .IsRequired();
 
-                    b.Property<double>("Trueskill");
+                    b.Property<double>("TrueskillMu");
+
+                    b.Property<double>("TrueskillSigma");
 
                     b.Property<DateTimeOffset>("UpdatedAt");
 
@@ -114,7 +117,9 @@ namespace HartPR.Migrations
 
                     b.Property<Guid>("TournamentId");
 
-                    b.Property<double>("Trueskill");
+                    b.Property<double>("TrueskillMu");
+
+                    b.Property<double>("TrueskillSigma");
 
                     b.HasKey("Id");
 

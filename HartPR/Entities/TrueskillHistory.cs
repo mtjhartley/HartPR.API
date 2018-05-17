@@ -14,7 +14,6 @@ namespace HartPR.Entities
         public double Trueskill { get; set; }
         //public string TournamentName { get; set; }
         public Guid TournamentId {get;set;}
-        public DateTimeOffset TournamentDate { get; set; }
 
     }
 }

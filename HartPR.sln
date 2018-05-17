@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HartPR", "HartPR\HartPR.csproj", "{09873F57-C1E8-4A85-982F-3C3874D393EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HartPRTest", "HartPRTest\HartPRTest.csproj", "{75C6DEC6-1B22-45C4-A375-AFB73239AA0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{09873F57-C1E8-4A85-982F-3C3874D393EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09873F57-C1E8-4A85-982F-3C3874D393EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09873F57-C1E8-4A85-982F-3C3874D393EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75C6DEC6-1B22-45C4-A375-AFB73239AA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C6DEC6-1B22-45C4-A375-AFB73239AA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C6DEC6-1B22-45C4-A375-AFB73239AA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C6DEC6-1B22-45C4-A375-AFB73239AA0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

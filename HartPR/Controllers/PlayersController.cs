@@ -39,14 +39,12 @@ namespace HartPR.Controllers
         [HttpHead]
         public IActionResult GetPlayers(PlayersResourceParameters playersResourceParameters)
         {
-            if (!_propertyMappingService.ValidMappingExistsFor<PlayerDto, Player>
-               (playersResourceParameters.OrderBy))
+            if (!_propertyMappingService.ValidMappingExistsFor<PlayerDto, Player>(playersResourceParameters.OrderBy))
             {
                 return BadRequest();
             }
 
-            if (!_typeHelperService.TypeHasProperties<PlayerDto>
-                (playersResourceParameters.Fields))
+            if (!_typeHelperService.TypeHasProperties<PlayerDto>(playersResourceParameters.Fields))
             {
                 return BadRequest();
             }
@@ -63,19 +61,17 @@ namespace HartPR.Controllers
                 totalPages = playersFromRepo.TotalPages,
             };
 
-            Response.Headers.Add("X-Pagination",
-                Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+            //TODO: Figure out exactly waht this is doing, check the pluralsight course
+            //Response.Headers.Add("X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-            var links = CreateLinksForPlayers(playersResourceParameters,
-                playersFromRepo.HasNext, playersFromRepo.HasPrevious);
+            var links = CreateLinksForPlayers(playersResourceParameters, playersFromRepo.HasNext, playersFromRepo.HasPrevious);
 
             var shapedPlayers = players.ShapeData(playersResourceParameters.Fields);
 
             var shapedPlayersWithLinks = shapedPlayers.Select(player =>
             {
                 var playerAsDictionary = player as IDictionary<string, object>;
-                var playerLinks = CreateLinksForPlayer(
-                    (Guid)playerAsDictionary["Id"], playersResourceParameters.Fields);
+                var playerLinks = CreateLinksForPlayer((Guid)playerAsDictionary["Id"], playersResourceParameters.Fields);
 
                 playerAsDictionary.Add("links", playerLinks);
 
@@ -91,9 +87,7 @@ namespace HartPR.Controllers
             return Ok(linkedCollectionResource);
         }
 
-        private string CreatePlayersResourceUri(
-            PlayersResourceParameters playersResourceParameters,
-            ResourceUriType type)
+        private string CreatePlayersResourceUri(PlayersResourceParameters playersResourceParameters, ResourceUriType type)
         {
             switch (type)
             {
@@ -153,17 +147,15 @@ namespace HartPR.Controllers
                   "GET"));
             }
 
-            links.Add(
-              new LinkDto(_urlHelper.Link("DeletePlayer", new { id = id }),
-              "delete_player",
-              "DELETE"));
+            //links.Add(
+            //  new LinkDto(_urlHelper.Link("DeletePlayer", new { id = id }),
+            //  "delete_player",
+            //  "DELETE"));
 
             return links;
         }
 
-        private IEnumerable<LinkDto> CreateLinksForPlayers(
-            PlayersResourceParameters playersResourceParameters,
-            bool hasNext, bool hasPrevious)
+        private IEnumerable<LinkDto> CreateLinksForPlayers(PlayersResourceParameters playersResourceParameters, bool hasNext, bool hasPrevious)
         {
             var links = new List<LinkDto>();
 
@@ -413,8 +405,22 @@ namespace HartPR.Controllers
             }
 
             return Ok(trueskillHistoryFromRepo);
+        }
 
-            //Don't think I can map anything important with this data. Maybe map AWAY the ID and the playerId, as these are either unnecessary or known.
+        [AllowAnonymous]
+        [HttpGet("{id}/tournaments", Name = "GetTournamentsForPlayer")]
+        public IActionResult GetTournamentsForPlayer(Guid id)
+        {
+            var tournamentsForPlayerFromRepo = _hartPRRepository.GetTournamentsForPlayer(id);
+
+            if (tournamentsForPlayerFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var tournaments = Mapper.Map<IEnumerable<TournamentDto>>(tournamentsForPlayerFromRepo);
+
+            return Ok(tournaments);
         }
 
 

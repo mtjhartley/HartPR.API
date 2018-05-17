@@ -220,7 +220,7 @@ namespace HartPR
             //add for CORS
             app.UseCors("CorsPolicy");
 
-            app.UseResponseCaching();
+            //app.UseResponseCaching();
 
             app.UseHttpCacheHeaders();
 

@@ -25,8 +25,7 @@ namespace HartPR.Services
         {
             return _context.Players.FirstOrDefault(a => a.Id == playerId);
         }
-        public PagedList<Player> GetPlayers(
-            PlayersResourceParameters playersResourceParameters)
+        public PagedList<Player> GetPlayers(PlayersResourceParameters playersResourceParameters)
         {
             //var collectionBeforePaging = _context.Players
             //    .OrderBy(a => a.FirstName)
@@ -100,6 +99,18 @@ namespace HartPR.Services
             return _context.Players.Any(p => p.Id == playerId);
         }
 
+        public IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId)
+        {
+            var tournaments = (from s in _context.Sets
+                               where s.WinnerId == playerId || s.LoserId == playerId
+                               join tournament in _context.Tournaments on s.TournamentId equals tournament.Id
+                               select tournament)
+                              .Distinct()
+                              .OrderByDescending(t => t.Date)
+                              .ToList();
+            return tournaments;
+        }
+
         #endregion
 
         #region Tournaments 
@@ -164,6 +175,23 @@ namespace HartPR.Services
             return _context.Tournaments.Any(t => t.Id == tournamentId);
         }
 
+        public IEnumerable<Player> GetPlayersForTournament(Guid tournamentId)
+        {
+            var playerIds = (from s in _context.Sets
+                           where s.TournamentId == tournamentId
+                           select s.WinnerId)
+                           .Union(from s in _context.Sets
+                                  where s.TournamentId == tournamentId
+                                  select s.LoserId)
+                           .ToList();
+            var players = _context.Players.Where(p => playerIds.Contains(p.Id))
+                .OrderBy(p => p.Tag)
+                .ToList();
+
+            return players;
+
+        }
+
         #endregion
 
         #region sets
@@ -188,7 +216,9 @@ namespace HartPR.Services
                                   Tournament = tournament.Name,
                                   Date = tournament.Date
                               }
-                             ).ToList();
+                             )
+                             .OrderByDescending(s => s.Date)
+                             .ToList();
 
             return playerSets;
         }
@@ -235,7 +265,9 @@ namespace HartPR.Services
                                      Tournament = tournament.Name,
                                      Date = tournament.Date
                                  }
-                                ).ToList();
+                                )
+                                .OrderByDescending(s => s.Date)
+                                .ToList();
 
             return head2HeadSets;
         }
@@ -312,11 +344,22 @@ namespace HartPR.Services
             return (_context.SaveChanges() >= 0);
         }
 
-        public IEnumerable<TrueskillHistory> GetTrueskillHistoryForPlayer(Guid playerId)
+        public IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId)
         {
-            return _context.TrueskillHistories.Where(p => p.PlayerId == playerId)
-                .OrderByDescending(p => p.TournamentDate)
-                .ToList();
+            var trueskillHistories = (from history in _context.TrueskillHistories
+                                      join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
+                                      where history.PlayerId == playerId
+
+                                      select new TrueskillHistoryDto()
+                                      {
+                                          Trueskill = history.Trueskill,
+                                          TournamentName = tourney.Name,
+                                          TournamentDate = tourney.Date
+                                      }
+                                      )
+                                      .OrderByDescending(t => t.TournamentDate)
+                                      .ToList();
+            return trueskillHistories;
 
             //TODO: Evaluate if it is necessary to make a custom linq query to grab Tournament Name? shouldn't be too hard.
             //Just some joins

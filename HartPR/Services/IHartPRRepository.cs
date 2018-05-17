@@ -19,6 +19,7 @@ namespace HartPR.Services
         void DeletePlayer(Player player);
         void UpdatePlayer(Player player);
         bool PlayerExists(Guid playerId);
+        IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId);
         //tournaments
         PagedList<Tournament> GetTournaments(TournamentsResourceParameters tournamentsResourceParameters);
         Tournament GetTournament(Guid tournamentId);
@@ -26,17 +27,19 @@ namespace HartPR.Services
         void DeleteTournament(Tournament tournament);
         void UpdateTournament(Tournament tournament);
         bool TournamentExists(Guid tournamentId);
+        IEnumerable<Player> GetPlayersForTournament(Guid tournamentId);
         //sets
         IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId);
         IEnumerable<SetDtoForTournament> GetSetsForTournament(Guid tournamentId);
         IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id);
-        IEnumerable<TrueskillHistory> GetTrueskillHistoryForPlayer(Guid playerId);
+        IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId);
         Set GetSet(Guid setId);
         SetDtoForDisplay GetSetForDisplay(Guid setId);
         void AddSet(Set set);
         void DeleteSet(Set set);
         void UpdateSet(Set set);
         bool Save();
+        //Users
         User GetUserByEmail(string email);
         IEnumerable<User> GetUsers();
         void AddUser(User newUser);

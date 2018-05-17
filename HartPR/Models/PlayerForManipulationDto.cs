@@ -20,8 +20,8 @@ namespace HartPR.Models
         public string State { get; set; }
 
         //TODO: Should TrueSkill be supplied (2500, 833.33?) when inputted automatically? nullable? 
-        public double TrueSkill { get; set; }
-
+        public double TrueskillMu { get; set; }
+        public double TrueskillSigma { get; set; }
         public int SggPlayerId { get; set; }
     }
 }
