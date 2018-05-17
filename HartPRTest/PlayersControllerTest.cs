@@ -20,6 +20,8 @@ namespace HartPRTest
         [TestInitialize]
         public void setup()
         {
+            AutoMapper.Mapper.Reset();
+
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 // players mapping
@@ -125,7 +127,8 @@ namespace HartPRTest
             var result = controller.GetPlayers(prp);
 
             //TODO: Cast and assert we're getting the response we expect.
-            Assert.IsNotNull(result);
+            var actual = result as OkObjectResult;
+            Assert.AreEqual(200, actual.StatusCode);
 
             mockHartPRRepository.VerifyAll();
 
