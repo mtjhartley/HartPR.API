@@ -168,7 +168,32 @@ namespace HartPR
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
                     $"{src.FirstName} {src.LastName}"));
 
+                cfg.CreateMap<Entities.Player, Models.PlayerMeleeDto>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
+                    $"{src.FirstName} {src.LastName}"))
+                    .ForMember(dest => dest.Trueskill, opt => opt.MapFrom(src =>
+                    src.MeleeTrueskill));
+
+                cfg.CreateMap<Entities.Player, Models.PlayerSmash4Dto>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
+                    $"{src.FirstName} {src.LastName}"))
+                    .ForMember(dest => dest.Trueskill, opt => opt.MapFrom(src =>
+                    src.Smash4Trueskill));
+
+                cfg.CreateMap<Entities.Player, Models.PlayerPMDto>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
+                    $"{src.FirstName} {src.LastName}"))
+                    .ForMember(dest => dest.Trueskill, opt => opt.MapFrom(src =>
+                    src.PMTrueskill));
+
                 cfg.CreateMap<Models.PlayerDto, Entities.Player>();
+
+                cfg.CreateMap<Models.PlayerMeleeDto, Entities.Player>();
+
+                cfg.CreateMap<Models.PlayerSmash4Dto, Entities.Player>();
+
+                cfg.CreateMap<Models.PlayerPMDto, Entities.Player>();
+
 
                 //cfg.CreateMap<Models.AuthorForCreationWithDateOfDeathDto, Entities.Author>();
 

@@ -30,10 +30,10 @@ namespace HartPR.Services
             //var collectionBeforePaging = _context.Players
             //    .OrderBy(a => a.FirstName)
             //    .ThenBy(a => a.LastName).AsQueryable();
+            IQueryable<Player> collectionBeforePaging =
+                        _context.Players.ApplySort(playersResourceParameters.OrderBy,
+                        _propertyMappingService.GetPropertyMapping<PlayerDto, Player>());
 
-            var collectionBeforePaging =
-                _context.Players.ApplySort(playersResourceParameters.OrderBy,
-                _propertyMappingService.GetPropertyMapping<PlayerDto, Player>());
 
             if (!string.IsNullOrEmpty(playersResourceParameters.State))
             {
@@ -178,8 +178,8 @@ namespace HartPR.Services
         public IEnumerable<Player> GetPlayersForTournament(Guid tournamentId)
         {
             var playerIds = (from s in _context.Sets
-                           where s.TournamentId == tournamentId
-                           select s.WinnerId)
+                             where s.TournamentId == tournamentId
+                             select s.WinnerId)
                            .Union(from s in _context.Sets
                                   where s.TournamentId == tournamentId
                                   select s.LoserId)
@@ -346,6 +346,57 @@ namespace HartPR.Services
 
         public IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId)
         {
+            //var gameTournament1 = _context.Tournaments
+            //var playersTrueSkillHistory = _context.TrueskillHistories.Where(tsh => tsh.PlayerId == playerId);
+
+
+            //var gameTournament = _context.Tournaments
+            //    .Where(t => t.GameId == Guid.Parse("1F52BB15-DFEF-4FD3-9C0A-E3F8260F9A1C"));
+
+
+
+
+            //playersTrueSkillHistory.Where(p => p.TournamentId == )
+
+            var trueskillHistories = (from history in _context.TrueskillHistories
+                                      join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
+                                      join players in _context.Players on history.PlayerId equals players.Id
+                                      //where history.PlayerId == playerId
+
+                                      select new TrueskillHistoryDto()
+                                      {
+                                          Trueskill = history.Trueskill,
+                                          TournamentName = tourney.Name,
+                                          TournamentDate = tourney.Date,
+                                          PlayerName = players.Tag
+                                      }
+                                      )
+                                      //.OrderByDescending(t => t.TournamentDate)
+                                      //.ThenBy(p => p.PlayerName)
+                                      .OrderByDescending(p => p.PlayerName)
+                                      .ThenBy(t => t.TournamentDate)
+                                      //TODO look at group by, look at max with max of tournament date.
+                                      .ToList();
+            return trueskillHistories;
+
+            //TODO: Evaluate if it is necessary to make a custom linq query to grab Tournament Name? shouldn't be too hard.
+            //Just some joins
+        }
+
+        public TrueskillHistoryDto GetMostRecentTrueskillForPlayer(Guid playerId)
+        {
+            //var gameTournament1 = _context.Tournaments
+            //var playersTrueSkillHistory = _context.TrueskillHistories.Where(tsh => tsh.PlayerId == playerId);
+
+
+            //var gameTournament = _context.Tournaments
+            //    .Where(t => t.GameId == Guid.Parse("1F52BB15-DFEF-4FD3-9C0A-E3F8260F9A1C"));
+
+
+
+
+            //playersTrueSkillHistory.Where(p => p.TournamentId == )
+
             var trueskillHistories = (from history in _context.TrueskillHistories
                                       join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
                                       where history.PlayerId == playerId
@@ -358,8 +409,79 @@ namespace HartPR.Services
                                       }
                                       )
                                       .OrderByDescending(t => t.TournamentDate)
-                                      .ToList();
+                                      .FirstOrDefault();
             return trueskillHistories;
+
+            //TODO: Evaluate if it is necessary to make a custom linq query to grab Tournament Name? shouldn't be too hard.
+            //Just some joins
+        }
+
+        public IEnumerable<Player> GetPlayersFromTrueskillHistory(Guid playerId)
+        {
+            //var gameTournament1 = _context.Tournaments
+            //var playersTrueSkillHistory = _context.TrueskillHistories.Where(tsh => tsh.PlayerId == playerId);
+
+
+            //var gameTournament = _context.Tournaments
+            //    .Where(t => t.GameId == Guid.Parse("1F52BB15-DFEF-4FD3-9C0A-E3F8260F9A1C"));
+
+
+            //Guid gameId = Guid.Parse("1F52BB15-DFEF-4FD3-9C0A-E3F8260F9A1C");
+            Guid gameId = Guid.Parse("8FA6C1F8-B06F-4020-A154-3A88260515A4");
+
+                    //playersTrueSkillHistory.Where(p => p.TournamentId == )
+
+                    var trueskillHistories = (from history in _context.TrueskillHistories
+                                      join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
+                                      join players in _context.Players on history.PlayerId equals players.Id
+                                      where tourney.GameId == gameId
+
+
+                                      select new TrueskillHistoryDto()
+                                      {
+                                          Trueskill = history.Trueskill,
+                                          TournamentName = tourney.Name,
+                                          TournamentDate = tourney.Date,
+                                          PlayerName = players.Tag,
+                                          PlayerId = players.Id
+                                      }
+                                      )
+                                      .OrderByDescending(t => t.TournamentDate)
+                                      .ThenBy(p => p.PlayerName)
+                                      .GroupBy(p => p.PlayerId)
+                                      .Select(p => p.First())
+                                      //TODO look at group by, look at max with max of tournament date.
+                                      .ToList();
+
+            var allPlayersForGame = (from history in _context.TrueskillHistories
+                                     join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
+                                     join players in _context.Players on history.PlayerId equals players.Id
+                                     where tourney.GameId == gameId
+
+                                     select new Player()
+                                     {
+                                         Trueskill = history.Trueskill,
+                                         Id = players.Id,
+                                         Tag = players.Tag,
+                                         State = players.State,
+                                         FirstName = players.FirstName,
+                                         LastName = players.LastName,
+                                         SggPlayerId = players.SggPlayerId,
+                                         LastActive = tourney.Date
+                                     }
+                                     )
+                                    .OrderByDescending(t => t.LastActive)
+                                      .ThenBy(p => p.Trueskill)
+                                      .GroupBy(p => p.Id)
+                                      .Select(p => p.First())
+                                      //TODO look at group by, look at max with max of tournament date.
+                                      .ToList();
+
+
+
+
+
+            return allPlayersForGame.OrderByDescending(p => p.Trueskill);
 
             //TODO: Evaluate if it is necessary to make a custom linq query to grab Tournament Name? shouldn't be too hard.
             //Just some joins

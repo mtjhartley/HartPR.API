@@ -11,7 +11,8 @@ namespace HartPR.Models
         public string Tag { get; set; }
         public string Name { get; set; }
         public string State { get; set; }
-        public double Trueskill { get; set; }
+        public double? Trueskill { get; set; }
         public int SggPlayerId { get; set; }
+        public DateTimeOffset? LastActive { get; set; }
     }
 }

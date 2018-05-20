@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180517205356_add-gameid-field-to-tournament-entity")]
+    partial class addgameidfieldtotournamententity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,15 +64,7 @@ namespace HartPR.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<double?>("MeleeTrueskill");
-
-                    b.Property<double?>("PMTrueskill");
-
                     b.Property<int>("SggPlayerId");
-
-                    b.Property<double?>("Smash4Trueskill");
-
-                    b.Property<double?>("Smash5Trueskill");
 
                     b.Property<string>("State")
                         .IsRequired();

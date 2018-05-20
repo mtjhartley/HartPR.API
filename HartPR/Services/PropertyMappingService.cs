@@ -19,6 +19,26 @@ namespace HartPR.Services
                { "Trueskill", new PropertyMappingValue(new List<string>() { "Trueskill" } ) },
             };
 
+        private Dictionary<string, PropertyMappingValue> _meleePlayerPropertyMapping =
+            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+            {
+               { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+               { "Tag", new PropertyMappingValue(new List<string>() { "Tag" } )},
+               { "Name", new PropertyMappingValue(new List<string>() { "FirstName", "LastName" }) },
+               { "State", new PropertyMappingValue(new List<string>() { "State" } ) },
+               { "Trueskill", new PropertyMappingValue(new List<string>() { "MeleeTrueskill" } ) },
+            };
+
+        private Dictionary<string, PropertyMappingValue> _smash4PlayerPropertyMapping =
+            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+            {
+               { "Id", new PropertyMappingValue(new List<string>() { "Id" } ) },
+               { "Tag", new PropertyMappingValue(new List<string>() { "Tag" } )},
+               { "Name", new PropertyMappingValue(new List<string>() { "FirstName", "LastName" }) },
+               { "State", new PropertyMappingValue(new List<string>() { "State" } ) },
+               { "Trueskill", new PropertyMappingValue(new List<string>() { "Smash4Trueskill" } ) },
+            };
+
         private Dictionary<string, PropertyMappingValue> _tournamentPropertyMapping =
             new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
             {
@@ -34,7 +54,10 @@ namespace HartPR.Services
 
         public PropertyMappingService()
         {
+            propertyMappings.Add(new PropertyMapping<PlayerMeleeDto, Player>(_meleePlayerPropertyMapping));
+            propertyMappings.Add(new PropertyMapping<PlayerSmash4Dto, Player>(_smash4PlayerPropertyMapping));
             propertyMappings.Add(new PropertyMapping<PlayerDto, Player>(_playerPropertyMapping));
+
             propertyMappings.Add(new PropertyMapping<TournamentDto, Tournament>(_tournamentPropertyMapping));
         }
 

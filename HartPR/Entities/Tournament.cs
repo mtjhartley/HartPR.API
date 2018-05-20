@@ -23,6 +23,8 @@ namespace HartPR.Entities
         public int SggTournamentId { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
+        //[Required]
+        public Guid GameId { get; set; }
 
         //TODO: Implement Sets and Players within the tournament later? With an option to grab them or not?
         //    public ICollection<Set> Sets { get; set; }

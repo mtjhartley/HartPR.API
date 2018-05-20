@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using HartPR.Helpers;
 
 namespace HartPR.Entities
 {
@@ -25,6 +26,11 @@ namespace HartPR.Entities
         [Required]
         public double Trueskill { get; set; }
 
+        public double? MeleeTrueskill { get; set; }
+        public double? Smash4Trueskill { get; set; }
+        public double? PMTrueskill { get; set; }
+        public double? Smash5Trueskill { get; set; }
+
         public int SggPlayerId { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
@@ -32,6 +38,8 @@ namespace HartPR.Entities
         public DateTimeOffset UpdatedAt { get; set; }
 
         public DateTimeOffset? LastActive { get; set; }
+
+        public Guid? UserId { get; set; }
 
     }
 }

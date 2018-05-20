@@ -66,6 +66,7 @@ namespace HartPR.Controllers
 
             var links = CreateLinksForPlayers(playersResourceParameters, playersFromRepo.HasNext, playersFromRepo.HasPrevious);
 
+
             var shapedPlayers = players.ShapeData(playersResourceParameters.Fields);
 
             var shapedPlayersWithLinks = shapedPlayers.Select(player =>
@@ -405,6 +406,38 @@ namespace HartPR.Controllers
             }
 
             return Ok(trueskillHistoryFromRepo);
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet("{id}/trueskillhistoryrecent", Name = "GetTrueskillHistoryRecentForPlayer")]
+        public IActionResult GetMostRecentTrueskillForPlayer(Guid id)
+        {
+            var trueskillHistoryFromRepo = _hartPRRepository.GetMostRecentTrueskillForPlayer(id);
+
+            if (trueskillHistoryFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(trueskillHistoryFromRepo);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("trueskillhistoryall", Name = "GetPlayersFromTrueskillHistory")]
+        public IActionResult GetPlayersFromTrueskillHistory(Guid id)
+        {
+            var playersFromRepo = _hartPRRepository.GetPlayersFromTrueskillHistory(id);
+
+            if (playersFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var players = Mapper.Map<IEnumerable<PlayerDto>>(playersFromRepo);
+
+
+            return Ok(players);
         }
 
         [AllowAnonymous]

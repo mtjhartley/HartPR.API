@@ -11,9 +11,10 @@ using System;
 namespace HartPR.Migrations
 {
     [DbContext(typeof(HartPRContext))]
-    partial class HartPRContextModelSnapshot : ModelSnapshot
+    [Migration("20180517162933_character-in-player-column-and-character-table")]
+    partial class characterinplayercolumnandcharactertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,28 +33,12 @@ namespace HartPR.Migrations
                     b.ToTable("Characters");
                 });
 
-            modelBuilder.Entity("HartPR.Entities.Game", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<byte>("Enum");
-
-                    b.Property<string>("Event")
-                        .IsRequired();
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Games");
-                });
-
             modelBuilder.Entity("HartPR.Entities.Player", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<byte>("Character");
 
                     b.Property<DateTimeOffset>("CreatedAt");
 
@@ -63,15 +48,7 @@ namespace HartPR.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<double?>("MeleeTrueskill");
-
-                    b.Property<double?>("PMTrueskill");
-
                     b.Property<int>("SggPlayerId");
-
-                    b.Property<double?>("Smash4Trueskill");
-
-                    b.Property<double?>("Smash5Trueskill");
 
                     b.Property<string>("State")
                         .IsRequired();
@@ -82,8 +59,6 @@ namespace HartPR.Migrations
                     b.Property<double>("Trueskill");
 
                     b.Property<DateTimeOffset>("UpdatedAt");
-
-                    b.Property<Guid?>("UserId");
 
                     b.HasKey("Id");
 
@@ -124,8 +99,6 @@ namespace HartPR.Migrations
                     b.Property<DateTimeOffset>("CreatedAt");
 
                     b.Property<DateTimeOffset>("Date");
-
-                    b.Property<Guid>("GameId");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -168,8 +141,6 @@ namespace HartPR.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte>("Character");
-
                     b.Property<DateTimeOffset>("CreatedAt");
 
                     b.Property<string>("Email")
@@ -185,8 +156,6 @@ namespace HartPR.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired();
-
-                    b.Property<string>("Twitter");
 
                     b.Property<DateTimeOffset>("UpdatedAt");
 

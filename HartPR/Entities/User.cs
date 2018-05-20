@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using HartPR.Helpers;
 
 namespace HartPR.Entities
 {
@@ -25,6 +26,10 @@ namespace HartPR.Entities
 
         [Required]
         public bool IsAdmin { get; set; }
+
+        public Byte Character { get; set; } = (Byte)Characters.Sandbag;
+
+        public string Twitter { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }

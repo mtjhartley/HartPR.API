@@ -19,5 +19,8 @@ namespace HartPR.Entities
         public DbSet<User> Users { get; set; }
 
         public DbSet<TrueskillHistory> TrueskillHistories { get; set; }
+
+        public DbSet<Character> Characters { get; set; }
+        public DbSet<Game> Games { get; set; }
     }
 }
