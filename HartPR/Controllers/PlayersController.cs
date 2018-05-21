@@ -34,10 +34,64 @@ namespace HartPR.Controllers
             _typeHelperService = typeHelperService;
         }
 
+        // DEPRECATED WAY OF DOING IT AFTER MOVING TRUESKILL OUT OF THE PLAYER TABLE COMPLETELY
+        //[AllowAnonymous]
+        ////[HttpGet(Name = "GetPlayers")]
+        //[HttpHead]
+        //public IActionResult GetPlayers(PlayersResourceParameters playersResourceParameters)
+        //{
+        //    if (!_propertyMappingService.ValidMappingExistsFor<PlayerDto, Player>(playersResourceParameters.OrderBy))
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    if (!_typeHelperService.TypeHasProperties<PlayerDto>(playersResourceParameters.Fields))
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var playersFromRepo = _hartPRRepository.GetPlayers(playersResourceParameters);
+
+        //    var players = Mapper.Map<IEnumerable<PlayerDto>>(playersFromRepo);
+
+        //    var paginationMetadata = new
+        //    {
+        //        totalCount = playersFromRepo.TotalCount,
+        //        pageSize = playersFromRepo.PageSize,
+        //        currentPage = playersFromRepo.CurrentPage,
+        //        totalPages = playersFromRepo.TotalPages,
+        //    };
+
+        //    //TODO: Figure out exactly waht this is doing, check the pluralsight course
+        //    //Response.Headers.Add("X-Pagination", Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+        //    var links = CreateLinksForPlayers(playersResourceParameters, playersFromRepo.HasNext, playersFromRepo.HasPrevious);
+
+
+        //    var shapedPlayers = players.ShapeData(playersResourceParameters.Fields);
+
+        //    var shapedPlayersWithLinks = shapedPlayers.Select(player =>
+        //    {
+        //        var playerAsDictionary = player as IDictionary<string, object>;
+        //        var playerLinks = CreateLinksForPlayer((Guid)playerAsDictionary["Id"], playersResourceParameters.Fields);
+
+        //        playerAsDictionary.Add("links", playerLinks);
+
+        //        return playerAsDictionary;
+        //    });
+
+        //    var linkedCollectionResource = new
+        //    {
+        //        value = shapedPlayersWithLinks,
+        //        links = links
+        //    };
+
+        //    return Ok(linkedCollectionResource);
+        //}
+
         [AllowAnonymous]
         [HttpGet(Name = "GetPlayers")]
-        [HttpHead]
-        public IActionResult GetPlayers(PlayersResourceParameters playersResourceParameters)
+        public IActionResult GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<PlayerDto, Player>(playersResourceParameters.OrderBy))
             {
@@ -49,9 +103,16 @@ namespace HartPR.Controllers
                 return BadRequest();
             }
 
-            var playersFromRepo = _hartPRRepository.GetPlayers(playersResourceParameters);
+            var playersFromRepo = _hartPRRepository.GetPlayersFromTrueskillHistory(playersResourceParameters);
+
+            if (playersFromRepo == null)
+            {
+                return NotFound();
+            }
 
             var players = Mapper.Map<IEnumerable<PlayerDto>>(playersFromRepo);
+
+            //return Ok(players);
 
             var paginationMetadata = new
             {
@@ -185,17 +246,41 @@ namespace HartPR.Controllers
             return links;
         }
 
+        // DEPRECATED WAY OF DOING IT AFTER MOVING TRUESKILL OUT OF THE PLAYER TABLE COMPLETELY
+        //[AllowAnonymous]
+        //[HttpGet("{id}", Name = "GetPlayer")]
+        //public IActionResult GetPlayer(Guid id, [FromQuery] string fields)
+        //{
+        //    if (!_typeHelperService.TypeHasProperties<PlayerDto>
+        //      (fields))
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var playerFromRepo = _hartPRRepository.GetPlayer(id);
+
+        //    if (playerFromRepo == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var player = Mapper.Map<PlayerDto>(playerFromRepo);
+
+        //    var links = CreateLinksForPlayer(id, fields);
+
+        //    var linkedResourceToReturn = player.ShapeData(fields)
+        //        as IDictionary<string, object>;
+
+        //    linkedResourceToReturn.Add("links", links);
+
+        //    return Ok(linkedResourceToReturn);
+        //}
+
         [AllowAnonymous]
         [HttpGet("{id}", Name = "GetPlayer")]
-        public IActionResult GetPlayer(Guid id, [FromQuery] string fields)
+        public IActionResult GetPlayerFromTrueskillHistory(Guid id, [FromQuery] string fields)
         {
-            if (!_typeHelperService.TypeHasProperties<PlayerDto>
-              (fields))
-            {
-                return BadRequest();
-            }
-
-            var playerFromRepo = _hartPRRepository.GetPlayer(id);
+            var playerFromRepo = _hartPRRepository.GetPlayerFromTrueskillHistory(id);
 
             if (playerFromRepo == null)
             {
@@ -203,6 +288,8 @@ namespace HartPR.Controllers
             }
 
             var player = Mapper.Map<PlayerDto>(playerFromRepo);
+
+            //return Ok(player);
 
             var links = CreateLinksForPlayer(id, fields);
 
@@ -421,23 +508,6 @@ namespace HartPR.Controllers
             }
 
             return Ok(trueskillHistoryFromRepo);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("trueskillhistoryall", Name = "GetPlayersFromTrueskillHistory")]
-        public IActionResult GetPlayersFromTrueskillHistory(Guid id)
-        {
-            var playersFromRepo = _hartPRRepository.GetPlayersFromTrueskillHistory(id);
-
-            if (playersFromRepo == null)
-            {
-                return NotFound();
-            }
-
-            var players = Mapper.Map<IEnumerable<PlayerDto>>(playersFromRepo);
-
-
-            return Ok(players);
         }
 
         [AllowAnonymous]

@@ -26,7 +26,7 @@ namespace HartPR.Entities
                      FirstName = "Michael",
                      LastName = "Hartley",
                      State = "WA",
-                     Trueskill = 3264.96,
+                     //Trueskill = 3264.96,
                      SggPlayerId = 13045,
                      CreatedAt = new DateTimeOffset(new DateTime(2012, 9, 21)),
                      UpdatedAt = new DateTimeOffset(DateTime.Now)
@@ -38,7 +38,7 @@ namespace HartPR.Entities
                      FirstName = "Mitch",
                      LastName = "Dzugan",
                      State = "CA",
-                     Trueskill = 4200.69,
+                     //Trueskill = 4200.69,
                      SggPlayerId = 98,
                      CreatedAt = new DateTimeOffset(new DateTime(2007, 6, 13)),
                      UpdatedAt = new DateTimeOffset(DateTime.Now)
@@ -51,7 +51,7 @@ namespace HartPR.Entities
                      FirstName = "Gary",
                      LastName = "Mai",
                      State = "WA",
-                     Trueskill = 2345.76,
+                     //Trueskill = 2345.76,
                      SggPlayerId = 214,
                      CreatedAt = new DateTimeOffset(new DateTime(2007, 6, 14)),
                      UpdatedAt = new DateTimeOffset(DateTime.Now)
@@ -63,7 +63,7 @@ namespace HartPR.Entities
                      FirstName = "Alex",
                      LastName = "Wallin",
                      State = "WA",
-                     Trueskill = 1111.11,
+                     //Trueskill = 1111.11,
                      SggPlayerId = 229,
                      CreatedAt = new DateTimeOffset(new DateTime(2003, 6, 14)),
                      UpdatedAt = new DateTimeOffset(DateTime.Now)
@@ -75,7 +75,7 @@ namespace HartPR.Entities
                      FirstName = "David",
                      LastName = "Tze",
                      State = "WA",
-                     Trueskill = 833.21,
+                     //Trueskill = 833.21,
                      SggPlayerId = 194,
                      CreatedAt = new DateTimeOffset(new DateTime(2006, 2, 01)),
                      UpdatedAt = new DateTimeOffset(DateTime.Now)
@@ -88,7 +88,7 @@ namespace HartPR.Entities
                      FirstName = "Leah",
                      LastName = "Doh",
                      State = "CA",
-                     Trueskill = 5000.00,
+                     //Trueskill = 5000.00,
                      SggPlayerId = 168,
                      CreatedAt = new DateTimeOffset(new DateTime(2013, 4, 01)),
                      UpdatedAt = new DateTimeOffset(DateTime.Now)
@@ -100,7 +100,7 @@ namespace HartPR.Entities
                      FirstName = "Tony",
                      LastName = "Salatino",
                      State = "AZ",
-                     Trueskill = 3321.76,
+                     //Trueskill = 3321.76,
                      SggPlayerId = 252,
                      CreatedAt = new DateTimeOffset(new DateTime(2010, 7, 21)),
                      UpdatedAt = new DateTimeOffset(DateTime.Now)

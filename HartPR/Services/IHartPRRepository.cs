@@ -34,7 +34,8 @@ namespace HartPR.Services
         IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id);
         IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId);
         TrueskillHistoryDto GetMostRecentTrueskillForPlayer(Guid playerId);
-        IEnumerable<Player> GetPlayersFromTrueskillHistory(Guid playerId);
+        Player GetPlayerFromTrueskillHistory(Guid playerId);
+        PagedList<Player> GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters);
         Set GetSet(Guid setId);
         SetDtoForDisplay GetSetForDisplay(Guid setId);
         void AddSet(Set set);

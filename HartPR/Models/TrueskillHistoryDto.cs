@@ -10,7 +10,7 @@ namespace HartPR.Models
         public double Trueskill { get; set; }
         public string TournamentName { get; set; }
         public string PlayerName { get; set; }
-        public Guid PlayerId { get; set; }
+        //public Guid PlayerId { get; set; }
         public DateTimeOffset TournamentDate { get; set; }
     }
 }

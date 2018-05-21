@@ -39,7 +39,7 @@ namespace HartPRTest
             mockPropertyMappingService.Setup(x => x.ValidMappingExistsFor<PlayerDto, Player>(It.IsAny<string>())).Returns(false);
 
             var controller = new PlayersController(null, null, mockPropertyMappingService.Object, null);
-            var result = controller.GetPlayers(prp);
+            var result = controller.GetPlayersFromTrueskillHistory(prp);
 
             var actual = result as BadRequestResult;
 
@@ -89,7 +89,7 @@ namespace HartPRTest
 
 
             Mock<IHartPRRepository> mockHartPRRepository = new Mock<IHartPRRepository>(MockBehavior.Strict);
-            mockHartPRRepository.Setup(x => x.GetPlayers(prp)).Returns(mockResult);
+            mockHartPRRepository.Setup(x => x.GetPlayersFromTrueskillHistory(prp)).Returns(mockResult);
 
             Mock<IUrlHelper> mockUrlHelper = new Mock<IUrlHelper>(MockBehavior.Strict);
             mockUrlHelper.Setup(x => x.Link(It.IsAny<string>(), It.IsAny<Object>())).Returns("someUrl");
@@ -124,7 +124,7 @@ namespace HartPRTest
 
 
             var controller = new PlayersController(mockHartPRRepository.Object, mockUrlHelper.Object, mockPropertyMappingService.Object, mockTypeHelperService.Object);
-            var result = controller.GetPlayers(prp);
+            var result = controller.GetPlayersFromTrueskillHistory(prp);
 
             //TODO: Cast and assert we're getting the response we expect.
             var actual = result as OkObjectResult;

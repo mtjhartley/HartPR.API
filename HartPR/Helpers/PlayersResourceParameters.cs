@@ -25,7 +25,7 @@ namespace HartPR.Helpers
 
         public string State { get; set; }
         public string SearchQuery { get; set; }
-        public string OrderBy { get; set; } = "Trueskill";
+        public string OrderBy { get; set; } = "Trueskill desc";
         public string Fields { get; set; }
     }
 }

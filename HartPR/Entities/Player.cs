@@ -23,13 +23,13 @@ namespace HartPR.Entities
         [Required]
         public string State { get; set; }
 
-        [Required]
-        public double Trueskill { get; set; }
+        //[Required]
+        public double? Trueskill { get; set; }
 
-        public double? MeleeTrueskill { get; set; }
-        public double? Smash4Trueskill { get; set; }
-        public double? PMTrueskill { get; set; }
-        public double? Smash5Trueskill { get; set; }
+        //public double? MeleeTrueskill { get; set; }
+        //public double? Smash4Trueskill { get; set; }
+        //public double? PMTrueskill { get; set; }
+        //public double? Smash5Trueskill { get; set; }
 
         public int SggPlayerId { get; set; }
 
