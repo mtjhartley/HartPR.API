@@ -207,12 +207,11 @@ namespace HartPR.Services
 
                               select new SetDtoForPlayer()
                               {
-                                  Winner = winner.Tag,
-                                  Loser = loser.Tag,
+                                  Opponent = playerId == set.WinnerId ? loser.Tag : winner.Tag, 
+                                  OpponentId = playerId == set.WinnerId ? set.LoserId : set.WinnerId,
+                                  isWin = playerId == set.WinnerId ? true : false,
                                   WinnerScore = set.WinnerScore,
                                   LoserScore = set.LoserScore,
-                                  WinnerId = set.WinnerId,
-                                  LoserId = set.LoserId,
                                   Tournament = tournament.Name,
                                   TournamentId = tournament.Id,
                                   Date = tournament.Date
@@ -220,6 +219,7 @@ namespace HartPR.Services
                              )
                              .OrderByDescending(s => s.Date)
                              .ToList();
+
 
             return playerSets;
         }
@@ -264,6 +264,7 @@ namespace HartPR.Services
                                      WinnerId = set.WinnerId,
                                      LoserId = set.LoserId,
                                      Tournament = tournament.Name,
+                                     TournamentId = tournament.Id,
                                      Date = tournament.Date
                                  }
                                 )
