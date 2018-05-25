@@ -214,6 +214,7 @@ namespace HartPR.Services
                                   WinnerId = set.WinnerId,
                                   LoserId = set.LoserId,
                                   Tournament = tournament.Name,
+                                  TournamentId = tournament.Id,
                                   Date = tournament.Date
                               }
                              )

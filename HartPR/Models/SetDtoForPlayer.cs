@@ -14,6 +14,7 @@ namespace HartPR.Models
         public int? WinnerScore { get; set; }
         public int? LoserScore { get; set; }
         public string Tournament { get; set; }
+        public Guid TournamentId { get; set; }
         public DateTimeOffset Date { get; set; }
     }
 }
