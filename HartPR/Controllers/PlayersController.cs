@@ -103,22 +103,12 @@ namespace HartPR.Controllers
                 return BadRequest();
             }
 
-            int gameNum;
-            if (Enum.TryParse(game, out Games gameValue))
-            {
-                if (Enum.IsDefined(typeof(Games), gameValue))
-                {
-                    gameNum = (int)gameValue;
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
             {
                 return BadRequest();
             }
+
 
             //TODO: Add gameNum to this request! 
             var playersFromRepo = _hartPRRepository.GetPlayersFromTrueskillHistory(playersResourceParameters, gameNum);
@@ -165,6 +155,27 @@ namespace HartPR.Controllers
             };
 
             return Ok(linkedCollectionResource);
+        }
+
+        private int GetGameFromUrl(string game)
+        {
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                    return gameNum;
+                }
+                else
+                {
+                    return gameNum = -1;
+                }
+            }
+            else
+            {
+                return gameNum = -1;
+            }
         }
 
         private string CreatePlayersResourceUri(PlayersResourceParameters playersResourceParameters, ResourceUriType type)
@@ -298,19 +309,8 @@ namespace HartPR.Controllers
         [HttpGet("{game}/{id}", Name = "GetPlayer")]
         public IActionResult GetPlayerFromTrueskillHistory(Guid id, string game, [FromQuery] string fields)
         {
-            int gameNum;
-            if (Enum.TryParse(game, out Games gameValue))
-            {
-                if (Enum.IsDefined(typeof(Games), gameValue))
-                {
-                    gameNum = (int)gameValue;
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
             {
                 return BadRequest();
             }
@@ -489,19 +489,8 @@ namespace HartPR.Controllers
                 return NotFound();
             }
 
-            int gameNum;
-            if (Enum.TryParse(game, out Games gameValue))
-            {
-                if (Enum.IsDefined(typeof(Games), gameValue))
-                {
-                    gameNum = (int)gameValue;
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
             {
                 return BadRequest();
             }
@@ -520,19 +509,8 @@ namespace HartPR.Controllers
                 return NotFound();
             }
 
-            int gameNum;
-            if (Enum.TryParse(game, out Games gameValue))
-            {
-                if (Enum.IsDefined(typeof(Games), gameValue))
-                {
-                    gameNum = (int)gameValue;
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
             {
                 return BadRequest();
             }
@@ -554,19 +532,8 @@ namespace HartPR.Controllers
         [HttpGet("{game}/{id}/trueskillhistory", Name = "GetTrueskillHistoryForPlayer")]
         public IActionResult GetTrueskillHistoryForPlayer(Guid id, string game)
         {
-            int gameNum;
-            if (Enum.TryParse(game, out Games gameValue))
-            {
-                if (Enum.IsDefined(typeof(Games), gameValue))
-                {
-                    gameNum = (int)gameValue;
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
             {
                 return BadRequest();
             }
@@ -586,19 +553,8 @@ namespace HartPR.Controllers
         [HttpGet("{game}/{id}/trueskillhistoryrecent", Name = "GetTrueskillHistoryRecentForPlayer")]
         public IActionResult GetMostRecentTrueskillForPlayer(Guid id, string game)
         {
-            int gameNum;
-            if (Enum.TryParse(game, out Games gameValue))
-            {
-                if (Enum.IsDefined(typeof(Games), gameValue))
-                {
-                    gameNum = (int)gameValue;
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
             {
                 return BadRequest();
             }
@@ -617,19 +573,8 @@ namespace HartPR.Controllers
         [HttpGet("{game}/{id}/tournaments", Name = "GetTournamentsForPlayer")]
         public IActionResult GetTournamentsForPlayer(Guid id, string game)
         {
-            int gameNum;
-            if (Enum.TryParse(game, out Games gameValue))
-            {
-                if (Enum.IsDefined(typeof(Games), gameValue))
-                {
-                    gameNum = (int)gameValue;
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            else
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
             {
                 return BadRequest();
             }

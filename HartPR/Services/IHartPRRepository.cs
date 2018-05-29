@@ -22,6 +22,7 @@ namespace HartPR.Services
         IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId, int gameNum);
         //tournaments
         PagedList<Tournament> GetTournaments(TournamentsResourceParameters tournamentsResourceParameters);
+        PagedList<Tournament> GetTournamentsForGame(TournamentsResourceParameters tournamentsResourceParameters, int gameNum);
         Tournament GetTournament(Guid tournamentId);
         void AddTournament(Tournament tournament);
         void DeleteTournament(Tournament tournament);

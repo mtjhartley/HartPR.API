@@ -151,6 +151,46 @@ namespace HartPR.Services
                 tournamentResourceParameters.PageSize);
         }
 
+        public PagedList<Tournament> GetTournamentsForGame(TournamentsResourceParameters tournamentResourceParameters, int gameNum)
+        {
+            //var collectionBeforePaging = _context.Players
+            //    .OrderBy(a => a.FirstName)
+            //    .ThenBy(a => a.LastName).AsQueryable();
+
+            var collectionBeforePaging =
+                _context.Tournaments.ApplySort(tournamentResourceParameters.OrderBy,
+                _propertyMappingService.GetPropertyMapping<TournamentDto, Tournament>());
+
+            //if (!string.IsNullOrEmpty(tournamentResourceParameters.State))
+            //{
+            //    // trim & ignore casing
+            //    var stateForWhereClause = playersResourceParameters.State
+            //        .Trim().ToLowerInvariant();
+            //    collectionBeforePaging = collectionBeforePaging
+            //        .Where(a => a.State.ToLowerInvariant() == stateForWhereClause);
+            //}
+
+            if (!string.IsNullOrEmpty(tournamentResourceParameters.SearchQuery))
+            {
+                // trim & ignore casing
+                var searchQueryForWhereClause = tournamentResourceParameters.SearchQuery
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Name.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
+
+            //Filtering the tournaments by the game they belong to
+            var gameFromDb = _context.Games.FirstOrDefault(g => g.Enum == gameNum);
+
+            collectionBeforePaging = collectionBeforePaging
+                .Where(t => t.GameId == gameFromDb.Id);
+
+            return PagedList<Tournament>.Create(collectionBeforePaging,
+                tournamentResourceParameters.PageNumber,
+                tournamentResourceParameters.PageSize);
+        }
+
         public Tournament GetTournament(Guid tournamentId)
         {
             return _context.Tournaments.FirstOrDefault(t => t.Id == tournamentId);

@@ -33,10 +33,66 @@ namespace HartPR.Controllers
             _typeHelperService = typeHelperService;
         }
 
+        //[AllowAnonymous]
+        //[HttpGet(Name = "GetTournaments")]
+        //[HttpHead]
+        //public IActionResult GetTournaments(TournamentsResourceParameters tournamentsResourceParameters)
+        //{
+        //    if (!_propertyMappingService.ValidMappingExistsFor<TournamentDto, Tournament>
+        //        (tournamentsResourceParameters.OrderBy))
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    if (!_typeHelperService.TypeHasProperties<TournamentDto>
+        //        (tournamentsResourceParameters.Fields))
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var tournamentsFromRepo = _hartPRRepository.GetTournaments(tournamentsResourceParameters);
+
+        //    var tournaments = Mapper.Map<IEnumerable<TournamentDto>>(tournamentsFromRepo);
+
+        //    var paginationMetadata = new
+        //    {
+        //        totalCount = tournamentsFromRepo.TotalCount,
+        //        pageSize = tournamentsFromRepo.PageSize,
+        //        currentPage = tournamentsFromRepo.CurrentPage,
+        //        totalPages = tournamentsFromRepo.TotalPages,
+        //    };
+
+        //    Response.Headers.Add("X-Pagination",
+        //        Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
+
+        //    var links = CreateLinksForTournaments(tournamentsResourceParameters,
+        //        tournamentsFromRepo.HasNext, tournamentsFromRepo.HasPrevious);
+
+        //    var shapedTournaments = tournaments.ShapeData(tournamentsResourceParameters.Fields);
+
+        //    var shapedTournamentsWithLinks = shapedTournaments.Select(tournament =>
+        //    {
+        //        var tournamentAsDictionary = tournament as IDictionary<string, object>;
+        //        var tournamentLinks = CreateLinksForTournament(
+        //            (Guid)tournamentAsDictionary["Id"], tournamentsResourceParameters.Fields);
+
+        //        tournamentAsDictionary.Add("links", tournamentLinks);
+
+        //        return tournamentAsDictionary;
+        //    });
+
+        //    var linkedCollectionResource = new
+        //    {
+        //        value = shapedTournamentsWithLinks,
+        //        links = links
+        //    };
+
+        //    return Ok(linkedCollectionResource);
+        //}
+
         [AllowAnonymous]
-        [HttpGet(Name = "GetTournaments")]
-        [HttpHead]
-        public IActionResult GetTournaments(TournamentsResourceParameters tournamentsResourceParameters)
+        [HttpGet("{game}", Name = "GetTournamentsForGame")]
+        public IActionResult GetTournamentsForGame(TournamentsResourceParameters tournamentsResourceParameters, string game)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<TournamentDto, Tournament>
                 (tournamentsResourceParameters.OrderBy))
@@ -50,7 +106,13 @@ namespace HartPR.Controllers
                 return BadRequest();
             }
 
-            var tournamentsFromRepo = _hartPRRepository.GetTournaments(tournamentsResourceParameters);
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
+            {
+                return BadRequest();
+            }
+
+            var tournamentsFromRepo = _hartPRRepository.GetTournamentsForGame(tournamentsResourceParameters, gameNum);
 
             var tournaments = Mapper.Map<IEnumerable<TournamentDto>>(tournamentsFromRepo);
 
@@ -74,7 +136,7 @@ namespace HartPR.Controllers
             {
                 var tournamentAsDictionary = tournament as IDictionary<string, object>;
                 var tournamentLinks = CreateLinksForTournament(
-                    (Guid)tournamentAsDictionary["Id"], tournamentsResourceParameters.Fields);
+                    (Guid)tournamentAsDictionary["Id"], gameNum, tournamentsResourceParameters.Fields);
 
                 tournamentAsDictionary.Add("links", tournamentLinks);
 
@@ -82,12 +144,33 @@ namespace HartPR.Controllers
             });
 
             var linkedCollectionResource = new
-                {
-                    value = shapedTournamentsWithLinks,
-                    links = links
-                };
+            {
+                value = shapedTournamentsWithLinks,
+                links = links
+            };
 
-                return Ok(linkedCollectionResource);
+            return Ok(linkedCollectionResource);
+        }
+
+        private int GetGameFromUrl(string game)
+        {
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                    return gameNum;
+                }
+                else
+                {
+                    return gameNum = -1;
+                }
+            }
+            else
+            {
+                return gameNum = -1;
+            }
         }
 
         private string CreateTournamentsResourceUri(
@@ -97,7 +180,7 @@ namespace HartPR.Controllers
             switch (type)
             {
                 case ResourceUriType.PreviousPage:
-                    return _urlHelper.Link("GetTournaments",
+                    return _urlHelper.Link("GetTournamentsForGame",
                       new
                       {
                           fields = tournamentResourceParameters.Fields,
@@ -107,7 +190,7 @@ namespace HartPR.Controllers
                           pageSize = tournamentResourceParameters.PageSize
                       });
                 case ResourceUriType.NextPage:
-                    return _urlHelper.Link("GetTournaments",
+                    return _urlHelper.Link("GetTournamentsForGame",
                       new
                       {
                           fields = tournamentResourceParameters.Fields,
@@ -118,7 +201,7 @@ namespace HartPR.Controllers
                       });
                 case ResourceUriType.Current:
                 default:
-                    return _urlHelper.Link("GetTournaments",
+                    return _urlHelper.Link("GetTournamentsForGame",
                     new
                     {
                         fields = tournamentResourceParameters.Fields,
@@ -160,8 +243,34 @@ namespace HartPR.Controllers
 
             return links;
         }
+        private IEnumerable<LinkDto> CreateLinksForTournament(Guid id, int gameNum, string fields)
+        {
+            var links = new List<LinkDto>();
 
-        private IEnumerable<LinkDto> CreateLinksForTournament(Guid id, string fields)
+            if (string.IsNullOrWhiteSpace(fields))
+            {
+                links.Add(
+                  new LinkDto(_urlHelper.Link("GetTournament", new { id = id }),
+                  "self",
+                  "GET"));
+            }
+            else
+            {
+                links.Add(
+                  new LinkDto(_urlHelper.Link("GetTournament", new { id = id, fields = fields }),
+                  "self",
+                  "GET"));
+            }
+
+            //links.Add(
+            //  new LinkDto(_urlHelper.Link("DeleteTournament", new { id = id }),
+            //  "delete_tournament",
+            //  "DELETE"));
+
+            return links;
+        }
+
+        private IEnumerable<LinkDto> CreateLinksForTournament(Guid id, string game, string fields)
         {
             var links = new List<LinkDto>();
 
@@ -189,9 +298,15 @@ namespace HartPR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}", Name = "GetTournament")]
-        public IActionResult GetTournament(Guid id, [FromQuery] string fields)
+        [HttpGet("{game}/{id}", Name = "GetTournament")]
+        public IActionResult GetTournament(Guid id, [FromQuery] string fields, string game)
         {
+            int gameNum = GetGameFromUrl(game);
+            if (gameNum == -1)
+            {
+                return BadRequest();
+            }
+
             if (!_typeHelperService.TypeHasProperties<TournamentDto>
               (fields))
             {
@@ -207,7 +322,7 @@ namespace HartPR.Controllers
 
             var tournament = Mapper.Map<TournamentDto>(tournamentFromRepo);
 
-            var links = CreateLinksForTournament(id, fields);
+            var links = CreateLinksForTournament(id, gameNum, fields);
 
             var linkedResourceToReturn = tournament.ShapeData(fields)
                 as IDictionary<string, object>;
