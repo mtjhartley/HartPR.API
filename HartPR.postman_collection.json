@@ -395,7 +395,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/tournaments",
+					"raw": "http://localhost:61775/api/tournaments/melee",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -403,7 +403,8 @@
 					"port": "61775",
 					"path": [
 						"api",
-						"tournaments"
+						"tournaments",
+						"melee"
 					]
 				}
 			},
@@ -419,7 +420,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/tournaments?OrderBy=Date desc",
+					"raw": "http://localhost:61775/api/tournaments/melee?OrderBy=Date desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -427,7 +428,8 @@
 					"port": "61775",
 					"path": [
 						"api",
-						"tournaments"
+						"tournaments",
+						"melee"
 					],
 					"query": [
 						{
