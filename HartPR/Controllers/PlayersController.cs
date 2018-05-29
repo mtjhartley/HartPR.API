@@ -90,8 +90,8 @@ namespace HartPR.Controllers
         //}
 
         [AllowAnonymous]
-        [HttpGet(Name = "GetPlayers")]
-        public IActionResult GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters)
+        [HttpGet("{game}", Name = "GetPlayers")]
+        public IActionResult GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters, string game)
         {
             if (!_propertyMappingService.ValidMappingExistsFor<PlayerDto, Player>(playersResourceParameters.OrderBy))
             {
@@ -103,7 +103,25 @@ namespace HartPR.Controllers
                 return BadRequest();
             }
 
-            var playersFromRepo = _hartPRRepository.GetPlayersFromTrueskillHistory(playersResourceParameters);
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            //TODO: Add gameNum to this request! 
+            var playersFromRepo = _hartPRRepository.GetPlayersFromTrueskillHistory(playersResourceParameters, gameNum);
 
             if (playersFromRepo == null)
             {
@@ -133,7 +151,7 @@ namespace HartPR.Controllers
             var shapedPlayersWithLinks = shapedPlayers.Select(player =>
             {
                 var playerAsDictionary = player as IDictionary<string, object>;
-                var playerLinks = CreateLinksForPlayer((Guid)playerAsDictionary["Id"], playersResourceParameters.Fields);
+                var playerLinks = CreateLinksForPlayer((Guid)playerAsDictionary["Id"], gameNum, playersResourceParameters.Fields);
 
                 playerAsDictionary.Add("links", playerLinks);
 
@@ -190,7 +208,7 @@ namespace HartPR.Controllers
             }
         }
 
-        private IEnumerable<LinkDto> CreateLinksForPlayer(Guid id, string fields)
+        private IEnumerable<LinkDto> CreateLinksForPlayer(Guid id, int gameNum, string fields)
         {
             var links = new List<LinkDto>();
 
@@ -277,10 +295,27 @@ namespace HartPR.Controllers
         //}
 
         [AllowAnonymous]
-        [HttpGet("{id}", Name = "GetPlayer")]
-        public IActionResult GetPlayerFromTrueskillHistory(Guid id, [FromQuery] string fields)
+        [HttpGet("{game}/{id}", Name = "GetPlayer")]
+        public IActionResult GetPlayerFromTrueskillHistory(Guid id, string game, [FromQuery] string fields)
         {
-            var playerFromRepo = _hartPRRepository.GetPlayerFromTrueskillHistory(id);
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            var playerFromRepo = _hartPRRepository.GetPlayerFromTrueskillHistory(id, gameNum);
 
             if (playerFromRepo == null)
             {
@@ -291,7 +326,7 @@ namespace HartPR.Controllers
 
             //return Ok(player);
 
-            var links = CreateLinksForPlayer(id, fields);
+            var links = CreateLinksForPlayer(id, gameNum, fields);
 
             var linkedResourceToReturn = player.ShapeData(fields)
                 as IDictionary<string, object>;
@@ -444,8 +479,8 @@ namespace HartPR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}/sets", Name = "GetSetsForPlayer")]
-        public IActionResult GetSetsForPlayer(Guid id)
+        [HttpGet("{game}/{id}/sets", Name = "GetSetsForPlayer")]
+        public IActionResult GetSetsForPlayer(Guid id, string game)
         {
             var playerFromRepo = _hartPRRepository.GetPlayer(id);
 
@@ -454,21 +489,55 @@ namespace HartPR.Controllers
                 return NotFound();
             }
 
-            var setsForPlayerFromRepo = _hartPRRepository.GetSetsForPlayer(id);
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            var setsForPlayerFromRepo = _hartPRRepository.GetSetsForPlayer(id, gameNum);
 
             return Ok(setsForPlayerFromRepo);
         }
 
         [AllowAnonymous]
-        [HttpGet("head2head/{player1Id}/{player2Id}", Name = "GetHead2HeadBetweenPlayers")]
-        public IActionResult GetHead2HeadBetweenPlayers(Guid player1Id, Guid player2Id)
+        [HttpGet("{game}/head2head/{player1Id}/{player2Id}", Name = "GetHead2HeadBetweenPlayers")]
+        public IActionResult GetHead2HeadBetweenPlayers(Guid player1Id, Guid player2Id, string game)
         {
             if (!_hartPRRepository.PlayerExists(player1Id) || !_hartPRRepository.PlayerExists(player2Id))
             {
                 return NotFound();
             }
 
-            var setsBetweenPlayers = _hartPRRepository.GetSetsBetweenPlayers(player1Id, player2Id);
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            var setsBetweenPlayers = _hartPRRepository.GetSetsBetweenPlayers(player1Id, player2Id, gameNum);
 
             return Ok(setsBetweenPlayers);
         }
@@ -482,10 +551,27 @@ namespace HartPR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}/trueskillhistory", Name = "GetTrueskillHistoryForPlayer")]
-        public IActionResult GetTrueskillHistoryForPlayer(Guid id)
+        [HttpGet("{game}/{id}/trueskillhistory", Name = "GetTrueskillHistoryForPlayer")]
+        public IActionResult GetTrueskillHistoryForPlayer(Guid id, string game)
         {
-            var trueskillHistoryFromRepo = _hartPRRepository.GetTrueskillHistoryForPlayer(id);
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            var trueskillHistoryFromRepo = _hartPRRepository.GetTrueskillHistoryForPlayer(id, gameNum);
 
             if (trueskillHistoryFromRepo == null)
             {
@@ -497,10 +583,27 @@ namespace HartPR.Controllers
 
 
         [AllowAnonymous]
-        [HttpGet("{id}/trueskillhistoryrecent", Name = "GetTrueskillHistoryRecentForPlayer")]
-        public IActionResult GetMostRecentTrueskillForPlayer(Guid id)
+        [HttpGet("{game}/{id}/trueskillhistoryrecent", Name = "GetTrueskillHistoryRecentForPlayer")]
+        public IActionResult GetMostRecentTrueskillForPlayer(Guid id, string game)
         {
-            var trueskillHistoryFromRepo = _hartPRRepository.GetMostRecentTrueskillForPlayer(id);
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            var trueskillHistoryFromRepo = _hartPRRepository.GetMostRecentTrueskillForPlayer(id, gameNum);
 
             if (trueskillHistoryFromRepo == null)
             {
@@ -511,10 +614,27 @@ namespace HartPR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}/tournaments", Name = "GetTournamentsForPlayer")]
-        public IActionResult GetTournamentsForPlayer(Guid id)
+        [HttpGet("{game}/{id}/tournaments", Name = "GetTournamentsForPlayer")]
+        public IActionResult GetTournamentsForPlayer(Guid id, string game)
         {
-            var tournamentsForPlayerFromRepo = _hartPRRepository.GetTournamentsForPlayer(id);
+            int gameNum;
+            if (Enum.TryParse(game, out Games gameValue))
+            {
+                if (Enum.IsDefined(typeof(Games), gameValue))
+                {
+                    gameNum = (int)gameValue;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            var tournamentsForPlayerFromRepo = _hartPRRepository.GetTournamentsForPlayer(id, gameNum);
 
             if (tournamentsForPlayerFromRepo == null)
             {

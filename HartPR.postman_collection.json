@@ -1,8 +1,7 @@
 {
 	"info": {
 		"name": "HartPR",
-		"_postman_id": "d944196a-39db-0a96-4f78-8d604eb1a168",
-		"description": "",
+		"_postman_id": "dd138c90-1f3a-0f74-ecd4-8d34e314fadd",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -16,7 +15,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/players?State=WA&OrderBy=trueSkill desc&pageNumber=1&pageSize=2",
+					"raw": "http://localhost:61775/api/players/melee?State=WA&OrderBy=trueSkill desc&pageNumber=1&pageSize=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -24,7 +23,8 @@
 					"port": "61775",
 					"path": [
 						"api",
-						"players"
+						"players",
+						"melee"
 					],
 					"query": [
 						{
@@ -62,7 +62,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/players?OrderBy=trueSkill desc",
+					"raw": "http://localhost:61775/api/players/melee?OrderBy=trueSkill desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -70,7 +70,8 @@
 					"port": "61775",
 					"path": [
 						"api",
-						"players"
+						"players",
+						"melee"
 					],
 					"query": [
 						{
@@ -93,7 +94,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/players",
+					"raw": "http://localhost:61775/api/players/melee",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -101,7 +102,8 @@
 					"port": "61775",
 					"path": [
 						"api",
-						"players"
+						"players",
+						"melee"
 					]
 				}
 			},
@@ -117,7 +119,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/players/25320c5e-f58a-4b1f-b63a-8ee07a840bdf",
+					"raw": "http://localhost:61775/api/players/melee/25320c5e-f58a-4b1f-b63a-8ee07a840bdf",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -126,6 +128,7 @@
 					"path": [
 						"api",
 						"players",
+						"melee",
 						"25320c5e-f58a-4b1f-b63a-8ee07a840bdf"
 					]
 				}
@@ -142,7 +145,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/players/25320c5e-f58a-4b1f-b63a-8ee07a840bdd",
+					"raw": "http://localhost:61775/api/players/melee/a87370e0-7d1b-4867-a1ed-696ca0700de0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -151,7 +154,8 @@
 					"path": [
 						"api",
 						"players",
-						"25320c5e-f58a-4b1f-b63a-8ee07a840bdd"
+						"melee",
+						"a87370e0-7d1b-4867-a1ed-696ca0700de0"
 					]
 				}
 			},
@@ -686,7 +690,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/players/1325360c-8253-473a-a20f-55c269c20407/sets",
+					"raw": "http://localhost:61775/api/players/melee/4C541B19-BF3D-4525-8E87-CF0F0D46A9F3/sets",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -695,7 +699,8 @@
 					"path": [
 						"api",
 						"players",
-						"1325360c-8253-473a-a20f-55c269c20407",
+						"melee",
+						"4C541B19-BF3D-4525-8E87-CF0F0D46A9F3",
 						"sets"
 					]
 				}
@@ -712,7 +717,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/players/a1da1d8e-1988-4634-b538-a01709477b77/sets",
+					"raw": "http://localhost:61775/api/players/melee/a1da1d8e-1988-4634-b538-a01709477b77/sets",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -721,6 +726,7 @@
 					"path": [
 						"api",
 						"players",
+						"melee",
 						"a1da1d8e-1988-4634-b538-a01709477b77",
 						"sets"
 					]
@@ -738,7 +744,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:61775/api/tournaments/a09ee685-1917-4251-be85-09b76b563861/sets",
+					"raw": "http://localhost:61775/api/tournaments/b0dec796-5a44-4601-bda4-7bfdd6b0a041/sets",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -747,7 +753,7 @@
 					"path": [
 						"api",
 						"tournaments",
-						"a09ee685-1917-4251-be85-09b76b563861",
+						"b0dec796-5a44-4601-bda4-7bfdd6b0a041",
 						"sets"
 					]
 				}
@@ -975,8 +981,7 @@
 						"token",
 						"users"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -1010,8 +1015,7 @@
 						"token",
 						"register"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -1045,8 +1049,7 @@
 						"token",
 						""
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		}

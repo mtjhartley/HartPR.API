@@ -99,11 +99,13 @@ namespace HartPR.Services
             return _context.Players.Any(p => p.Id == playerId);
         }
 
-        public IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId)
+        public IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId, int gameNum)
         {
             var tournaments = (from s in _context.Sets
-                               where s.WinnerId == playerId || s.LoserId == playerId
                                join tournament in _context.Tournaments on s.TournamentId equals tournament.Id
+                               join games in _context.Games on tournament.GameId equals games.Id
+                               where (s.WinnerId == playerId || s.LoserId == playerId)
+                               && games.Enum == gameNum
                                select tournament)
                               .Distinct()
                               .OrderByDescending(t => t.Date)
@@ -196,14 +198,15 @@ namespace HartPR.Services
 
         #region sets
         //TODO: Consider changing this to search by SGGPlayerId as per discussion with Mitch.
-        public IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId)
+        public IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId, int gameNum)
         {
             var playerSets = (from set in _context.Sets
                               join winner in _context.Players on set.WinnerId equals winner.Id
                               join loser in _context.Players on set.LoserId equals loser.Id
                               join tournament in _context.Tournaments on set.TournamentId equals tournament.Id
+                              join games in _context.Games on tournament.GameId equals games.Id
                               where (set.WinnerId == playerId || set.LoserId == playerId)
-                              && set.LoserScore != -1
+                              && set.LoserScore != -1 && games.Enum == gameNum
 
                               select new SetDtoForPlayer()
                               {
@@ -246,14 +249,16 @@ namespace HartPR.Services
             return tournamentSets;
         }
 
-        public IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id)
+        public IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id, int gameNum)
         {
             var head2HeadSets = (from set in _context.Sets
                                  join winner in _context.Players on set.WinnerId equals winner.Id
                                  join loser in _context.Players on set.LoserId equals loser.Id
                                  join tournament in _context.Tournaments on set.TournamentId equals tournament.Id
+                                 join games in _context.Games on tournament.GameId equals games.Id
                                  where (((set.WinnerId == player1Id && set.LoserId == player2Id) ||
                                     (set.WinnerId == player2Id && set.LoserId == player1Id)) && set.LoserScore != -1)
+                                    && games.Enum == gameNum
 
                                  select new SetDtoForHead2Head()
                                  {
@@ -346,12 +351,13 @@ namespace HartPR.Services
             return (_context.SaveChanges() >= 0);
         }
 
-        public IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId)
+        public IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId, int gameNum)
         {
             var trueskillHistories = (from history in _context.TrueskillHistories
                                       join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
                                       join players in _context.Players on history.PlayerId equals players.Id
-                                      where history.PlayerId == playerId
+                                      join games in _context.Games on tourney.GameId equals games.Id
+                                      where history.PlayerId == playerId && games.Enum == gameNum
 
                                       select new TrueskillHistoryDto()
                                       {
@@ -367,12 +373,13 @@ namespace HartPR.Services
             return trueskillHistories;
         }
 
-        public TrueskillHistoryDto GetMostRecentTrueskillForPlayer(Guid playerId)
+        public TrueskillHistoryDto GetMostRecentTrueskillForPlayer(Guid playerId, int gameNum)
         {
             var trueskillHistories = (from history in _context.TrueskillHistories
                                       join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
                                       join players in _context.Players on history.PlayerId equals players.Id
-                                      where history.PlayerId == playerId
+                                      join games in _context.Games on tourney.GameId equals games.Id
+                                      where history.PlayerId == playerId && games.Enum == gameNum
 
                                       select new TrueskillHistoryDto()
                                       {
@@ -390,17 +397,18 @@ namespace HartPR.Services
             //Just some joins
         }
 
-        public Player GetPlayerFromTrueskillHistory(Guid playerId)
+        public Player GetPlayerFromTrueskillHistory(Guid playerId, int gameNum)
         {
             //TODO: Refactor to take in GAME ID, for now let's hard code it in. 
             //TODO: What happens if a player has never played that game? Let's make a blank response for that perhaps. 
             //Guid gameId = Guid.Parse("1F52BB15-DFEF-4FD3-9C0A-E3F8260F9A1C"); //s4
-            Guid gameId = Guid.Parse("8FA6C1F8-B06F-4020-A154-3A88260515A4"); //melee
+            //Guid gameId = Guid.Parse("8FA6C1F8-B06F-4020-A154-3A88260515A4"); //melee
 
             var playerForGame = (from history in _context.TrueskillHistories
                                       join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
                                       join players in _context.Players on history.PlayerId equals players.Id
-                                      where history.PlayerId == playerId && tourney.GameId == gameId
+                                      join games in _context.Games on tourney.GameId equals games.Id
+                                      where history.PlayerId == playerId && games.Enum == gameNum
 
                                       select new Player()
                                       {
@@ -429,7 +437,7 @@ namespace HartPR.Services
             //Just some joins
         }
 
-        public PagedList<Player> GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters)
+        public PagedList<Player> GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters, int gameNum)
         {
             //var gameTournament1 = _context.Tournaments
             //var playersTrueSkillHistory = _context.TrueskillHistories.Where(tsh => tsh.PlayerId == playerId);
@@ -447,7 +455,8 @@ namespace HartPR.Services
             var allPlayersForGame = (from history in _context.TrueskillHistories
                                      join tourney in _context.Tournaments on history.TournamentId equals tourney.Id
                                      join players in _context.Players on history.PlayerId equals players.Id
-                                     where tourney.GameId == gameId
+                                     join games in _context.Games on tourney.GameId equals games.Id
+                                     where games.Enum == gameNum
 
                                      select new Player()
                                      {

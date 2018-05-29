@@ -7,8 +7,8 @@ namespace HartPR.Helpers
 {
     public enum Games
     {
-        Melee,
-        Smash4,
-        PM
+        melee,
+        smash4,
+        pm
     }
 }

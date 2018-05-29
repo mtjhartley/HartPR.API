@@ -19,7 +19,7 @@ namespace HartPR.Services
         void DeletePlayer(Player player);
         void UpdatePlayer(Player player);
         bool PlayerExists(Guid playerId);
-        IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId);
+        IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId, int gameNum);
         //tournaments
         PagedList<Tournament> GetTournaments(TournamentsResourceParameters tournamentsResourceParameters);
         Tournament GetTournament(Guid tournamentId);
@@ -29,13 +29,13 @@ namespace HartPR.Services
         bool TournamentExists(Guid tournamentId);
         IEnumerable<Player> GetPlayersForTournament(Guid tournamentId);
         //sets
-        IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId);
+        IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId, int gameNum);
         IEnumerable<SetDtoForTournament> GetSetsForTournament(Guid tournamentId);
-        IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id);
-        IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId);
-        TrueskillHistoryDto GetMostRecentTrueskillForPlayer(Guid playerId);
-        Player GetPlayerFromTrueskillHistory(Guid playerId);
-        PagedList<Player> GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters);
+        IEnumerable<SetDtoForHead2Head> GetSetsBetweenPlayers(Guid player1Id, Guid player2Id, int gameNum);
+        IEnumerable<TrueskillHistoryDto> GetTrueskillHistoryForPlayer(Guid playerId, int gameNum);
+        TrueskillHistoryDto GetMostRecentTrueskillForPlayer(Guid playerId, int gameNum);
+        Player GetPlayerFromTrueskillHistory(Guid playerId, int gameNum);
+        PagedList<Player> GetPlayersFromTrueskillHistory(PlayersResourceParameters playersResourceParameters, int gameNum);
         Set GetSet(Guid setId);
         SetDtoForDisplay GetSetForDisplay(Guid setId);
         void AddSet(Set set);
