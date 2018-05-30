@@ -29,6 +29,7 @@ namespace HartPR.Services
         void UpdateTournament(Tournament tournament);
         bool TournamentExists(Guid tournamentId);
         IEnumerable<Player> GetPlayersForTournament(Guid tournamentId);
+        IEnumerable<EntrantDto> GetEntrantsForTournament(Guid tournamentId);
         //sets
         IEnumerable<SetDtoForPlayer> GetSetsForPlayer(Guid playerId, int gameNum);
         IEnumerable<SetDtoForTournament> GetSetsForTournament(Guid tournamentId);

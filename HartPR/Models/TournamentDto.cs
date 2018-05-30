@@ -12,6 +12,7 @@ namespace HartPR.Models
         public string Website { get; set; }
         public string Subdomain { get; set; }
         public string URL { get; set; }
+        public int Attendees { get; set; }
         public DateTimeOffset Date { get; set; }
     }
 }

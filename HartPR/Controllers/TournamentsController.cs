@@ -116,6 +116,12 @@ namespace HartPR.Controllers
 
             var tournaments = Mapper.Map<IEnumerable<TournamentDto>>(tournamentsFromRepo);
 
+            foreach (TournamentDto tourney in tournaments)
+            {
+                int attendees = _hartPRRepository.GetEntrantsForTournament(tourney.Id).Count();
+                tourney.Attendees = attendees;
+            }
+
             var paginationMetadata = new
             {
                 totalCount = tournamentsFromRepo.TotalCount,
@@ -463,7 +469,7 @@ namespace HartPR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}/sets", Name = "GetSetsForTournament")]
+        [HttpGet("{game}/{id}/sets", Name = "GetSetsForTournament")]
         public IActionResult GetSetsForTournament(Guid id)
         {
             var tournamentFromRepo = _hartPRRepository.GetTournament(id);
@@ -479,7 +485,7 @@ namespace HartPR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}/players", Name = "GetPlayersForTournament")]
+        [HttpGet("{game}/{id}/players", Name = "GetPlayersForTournament")]
         public IActionResult GetPlayersForTournament(Guid id)
         {
             var tournamentFromRepo = _hartPRRepository.GetTournament(id);
@@ -494,6 +500,24 @@ namespace HartPR.Controllers
             var players = Mapper.Map<IEnumerable<PlayerDto>>(playersForTournamentFromRepo);
 
             return Ok(players);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{game}/{id}/entrants", Name = "GetEntrantsForTournament")]
+        public IActionResult GetEntrantsForTournament(Guid id)
+        {
+            var tournamentFromRepo = _hartPRRepository.GetTournament(id);
+
+            if (tournamentFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var entrants = _hartPRRepository.GetEntrantsForTournament(id);
+
+            //var players = Mapper.Map<IEnumerable<PlayerDto>>(playersForTournamentFromRepo);
+
+            return Ok(entrants);
         }
 
         [AllowAnonymous]

@@ -234,6 +234,27 @@ namespace HartPR.Services
 
         }
 
+        public IEnumerable<EntrantDto> GetEntrantsForTournament(Guid tournamentId)
+        {
+            var entrants = (from pt in _context.PlayerTournaments
+                            join players in _context.Players on pt.PlayerId equals players.Id
+                            where pt.TournamentId == tournamentId
+                            select new EntrantDto()
+                            {
+                                PlayerId = pt.PlayerId,
+                                Tag = players.Tag,
+                                Seed = pt.Seed,
+                                Placing = pt.Placing
+                                //Trueskill = join table trueskill? or add to this table when teh script runs? TODO: Ask Mitch
+                            }
+                            )
+                            .OrderBy(e => e.Placing)
+                            .ThenBy(e => e.Tag)
+                            .ToList();
+
+            return entrants;
+        }
+
         #endregion
 
         #region sets

@@ -14,7 +14,8 @@ namespace HartPR.Entities
             context.Tournaments.RemoveRange(context.Tournaments);
             context.Sets.RemoveRange(context.Sets);
             context.Users.RemoveRange(context.Users);
-            context.SaveChanges();
+            context.PlayerTournaments.RemoveRange(context.PlayerTournaments);
+            //context.SaveChanges();
 
             // init seed data
             var players = new List<Player>()
@@ -222,9 +223,9 @@ namespace HartPR.Entities
                },
             };
 
-            context.Players.AddRange(players);
-            context.Tournaments.AddRange(tournaments);
-            context.Sets.AddRange(sets);
+            //context.Players.AddRange(players);
+            //context.Tournaments.AddRange(tournaments);
+            //context.Sets.AddRange(sets);
             context.Users.AddRange(users);
 
             context.SaveChanges();
