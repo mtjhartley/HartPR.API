@@ -101,15 +101,26 @@ namespace HartPR.Services
 
         public IEnumerable<Tournament> GetTournamentsForPlayer(Guid playerId, int gameNum)
         {
-            var tournaments = (from s in _context.Sets
-                               join tournament in _context.Tournaments on s.TournamentId equals tournament.Id
+            ////Using sets table to get all tournaments where this player attended
+            //var tournaments = (from s in _context.Sets
+            //                   join tournament in _context.Tournaments on s.TournamentId equals tournament.Id
+            //                   join games in _context.Games on tournament.GameId equals games.Id
+            //                   where (s.WinnerId == playerId || s.LoserId == playerId)
+            //                   && games.Enum == gameNum
+            //                   select tournament)
+            //                  .Distinct()
+            //                  .OrderByDescending(t => t.Date)
+            //                  .ToList();
+
+            //Using PlayerTournaments table to get all tournaments a player attended.
+            var tournaments = (from pt in _context.PlayerTournaments
+                               join tournament in _context.Tournaments on pt.TournamentId equals tournament.Id
                                join games in _context.Games on tournament.GameId equals games.Id
-                               where (s.WinnerId == playerId || s.LoserId == playerId)
-                               && games.Enum == gameNum
-                               select tournament)
-                              .Distinct()
-                              .OrderByDescending(t => t.Date)
-                              .ToList();
+                               where pt.PlayerId == playerId && games.Enum == gameNum
+                               select tournament
+                               )
+                               .OrderByDescending(t => t.Date)
+                               .ToList();
             return tournaments;
         }
 

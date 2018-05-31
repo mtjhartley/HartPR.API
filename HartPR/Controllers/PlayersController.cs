@@ -573,6 +573,13 @@ namespace HartPR.Controllers
         [HttpGet("{game}/{id}/tournaments", Name = "GetTournamentsForPlayer")]
         public IActionResult GetTournamentsForPlayer(Guid id, string game)
         {
+            var playerFromRepo = _hartPRRepository.GetPlayer(id);
+
+            if (playerFromRepo == null)
+            {
+                return NotFound();
+            }
+
             int gameNum = GetGameFromUrl(game);
             if (gameNum == -1)
             {
